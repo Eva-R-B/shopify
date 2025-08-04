@@ -1,9 +1,10 @@
 <html>
     <head>
-        {{content_for_header}}
+        {{ content_for_header }}
+        <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}">
     </head>
-
     <body>
-        {{content_for_layout}}
+        {% section 'header' %} 
+        {{ content_for_layout }}
     </body>
 </html>

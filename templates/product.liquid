@@ -6,19 +6,20 @@
     <div class="product-details">
         <h1 class="product-title">{{ product.title }}</h1>
         <div class="product-price">{{ product.price | money }}</div>
-        <form class="product-form">
-            <div class="product-variations">
-                <label for="variation">Choose a variation:</label>
+        {% comment %} <form class="product-form">
+            {% comment %} <div class="product-variations">
                 <label for="variation">Choose a {{ product.options[0] }}:</label>
-                
                 <select id="variation" name="id">{% for variant in product.variants %}<option value="{{ variant.id }}"> {{ variant.title }}</option>{% endfor %}</select>
-            </div>
-            <div class="product-quantity">
+            </div> {% endcomment %}
+            {% comment %} <div class="product-quantity">
                 <label for="quantity">Quantity:</label>
                 <input type="number" id="quantity" name="quantity" value="1" min="1">
-            </div>
-            <button type="submit" class="add-to-cart">Add to Cart</button>
-        </form>
+            </div> {% endcomment %}
+        </form> {% endcomment %}
+        {% form 'product', product %}
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                <button type="submit" class="add-to-cart">Add to Cart</button>
+        {% endform %}
         <div class="product-description">
             <h2>Description</h2>
             <p>{{ product.description }}</p>
