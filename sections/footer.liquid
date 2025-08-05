@@ -1,0 +1,198 @@
+<footer class="site-footer" style="background:#fff; padding:48px 0 24px 0; border-top:1px solid #ececec;">
+    <style>
+        .site-footer {
+            font-family: 'Inter', Arial, sans-serif;
+            color: #444;
+        }
+     .footer-container {
+            max-width: 1450px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 32px;
+            padding: 0 50px;
+        }
+        .footer-logo {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 24px;
+        }
+        .footer-logo img {
+            max-width: 150px;
+            border-radius: 8px;
+            height:70px;
+            object-fit: contain;
+            margin-bottom: 12px;
+        }
+        .footer-logo h2 {
+            font-size: 1.7em;
+            margin: 0;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #222;
+        }
+        .footer-logo p {
+            color: #aaa;
+            font-size: 0.97em;
+            margin-top: 12px;
+        }
+        .footer-menus {
+            flex: 2;
+            min-width: 220px;
+            display: flex;
+            gap: 48px;
+        }
+        .footer-menu h4 {
+            margin-bottom: 12px;
+            font-size: 1.13em;
+            color: #222;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+        .footer-menu ul {
+            display: flex;
+            gap: 8px;
+            list-style: none;
+            padding: 0;
+            align-items: center;
+            margin: 0 auto;
+
+        }
+        .footer-menu li {
+            margin-bottom: 10px;
+        }
+        .footer-menu a {
+            color: #555;
+            text-decoration: none;
+            transition: color 0.2s;
+            font-size: 1em;
+        }
+        .footer-menu a:hover {
+            text-decoration: underline;
+        }
+        .footer-contact {
+            flex: 1;
+            min-width: 220px;
+        }
+        .footer-contact h4 {
+            margin-bottom: 12px;
+            font-size: 1.13em;
+            color: #222;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+        .footer-contact p {
+            color: #555;
+            font-size: 0.97em;
+            margin-bottom: 0;
+            line-height: 1.7;
+        }
+        .footer-contact a {
+            color: #343332ff;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-contact a:hover {
+            text-decoration: underline;
+        }
+        .footer-menus {
+            flex: 2;
+            min-width: 220px;
+            display: inline-flex;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+        .footer-menu h4 {
+            display: none;
+        }
+        .footer-social {
+            margin-top: 18px;
+            display: flex;
+            gap: 14px;
+        }
+        .footer-social a img {
+            width: 28px;
+            height: 28px;
+            opacity: 0.85;
+            transition: opacity 0.2s, transform 0.2s;
+            vertical-align: middle;
+        }
+        .footer-social a:hover img {
+            opacity: 1;
+            transform: scale(1.08);
+        }
+        @media (max-width: 900px) {
+            .footer-container {
+                flex-direction: column;
+                gap: 24px;
+            }
+            .footer-menus {
+                gap: 32px;
+            }
+        }
+    </style>
+    <div class="footer-container">
+        <!-- Logo -->
+        <div class="footer-logo">
+            <a href="{{ shop.url }}">
+                {% if shop.brand.logo != blank %}
+                    <img src="{{ shop.brand.logo | img_url: '200x' }}" alt="{{ shop.name }} logo" width="100%" >
+                {% else %}
+                    <h2>{{ shop.name }}</h2>
+                {% endif %}
+            </a>
+            <p>&copy; {{ 'now' | date: "%Y" }} {{ shop.name }}. All rights reserved.</p>
+        </div>
+
+        <!-- Quick Menus -->
+        <div class="footer-menus">
+            {% for linklist in linklists %}
+                {% if linklist.handle contains 'footer' %}
+                    <div class="footer-menu">
+                        <ul>
+                            {% for link in linklists.main-menu.links %}
+                                <li>
+                                    <a href="{{ link.url }}">{{ link.title }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <!-- Contact & Social -->
+        <div class="footer-contact">
+            <h4>Contact</h4>
+            <p>
+                {% if shop.email %}
+                    <a href="mailto:{{ shop.email }}">{{ shop.email }}</a><br>
+                {% endif %}
+                {% if shop.phone %}
+                    <span>{{ shop.phone }}</span><br>
+                {% endif %}
+                {{ shop.address.street }}<br>
+                {{ shop.address.city }}, {{ shop.address.province_code }} {{ shop.address.zip }}
+            </p>
+            <div class="footer-social">
+                {% if settings.social_facebook != blank %}
+                    <a href="{{ settings.social_facebook }}" target="_blank">
+                        <img src="{{ 'facebook.svg' | asset_url }}" alt="Facebook">
+                    </a>
+                {% endif %}
+                {% if settings.social_instagram != blank %}
+                    <a href="{{ settings.social_instagram }}" target="_blank">
+                        <img src="{{ 'instagram.svg' | asset_url }}" alt="Instagram">
+                    </a>
+                {% endif %}
+                {% if settings.social_twitter != blank %}
+                    <a href="{{ settings.social_twitter }}" target="_blank">
+                        <img src="{{ 'twitter.svg' | asset_url }}" alt="Twitter">
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</footer>
