@@ -1,0 +1,46 @@
+
+{% comment %} pulling information from the product or from the section object. {% endcomment %}
+<div
+    class="announcement-bar"
+    style="
+        background-color: {{ section.settings.background_color }};
+        color: {{ section.settings.text_color }};
+        padding: 10px 0;
+        text-align: center;
+    "
+>
+    {{ section.settings.announcement_text }}
+</div>
+
+{% comment %} schema goes always last {% endcomment %}
+{% schema %}
+{
+    "name": "Announcement Bar",
+    "settings": [
+        {
+            "type": "text",
+            "id": "announcement_text",
+            "label": "Announcement Text",
+            "default": "Welcome to our store! Enjoy 10% off your first order!"
+        },
+        {
+            "type": "color",
+            "id": "background_color",
+            "label": "Background Color",
+            "default": "#f4f4f4",
+        },
+        {
+            "type": "color",
+            "id": "text_color",
+            "label": "Text Color",
+            "default": "#333333"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Announcement Bar",
+            "category": "Header"
+        }
+    ]
+}
+{% endschema %}

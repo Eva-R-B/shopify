@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "title": "Welcome to Our Store",
+        "subtitle": "Discover our latest products"
+      }
+    }
+  },
+  "order": [
+    "hero"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+    "type": "header",
+    "name": "header-group",
+    "sections": {
+        "announcment-bar": {
+            "type": "announcment-bar",
+            "name": "Announcement Bar",
+            "settings": {
+            "text": "Welcome to our store! Enjoy 10% off your first order!",
+            "link": ""
+          }
+        },
+        "header": {
+            "type": "header",
+            "name": "Header",
+            "settings":{},
+        },
+       
+    },
+    "order": [
+        "announcment-bar",
+        "header",
+
+    ]
+}

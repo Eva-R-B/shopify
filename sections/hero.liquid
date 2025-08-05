@@ -1,0 +1,142 @@
+{% stylesheet %}
+:root {
+    --font-main: 'Inter', Arial, sans-serif;
+    --font-menu: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    --color-main: #222;
+    --color-accent: #B7A266;
+}
+.hero-section {
+    background-color: #f8f8f8;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px 20px;
+    min-height: 65vh;
+    position: relative; /* Needed for overlay */
+}
+.hero-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.25) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+.hero-content {
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 150px;
+    position: relative;
+    z-index: 2; /* Above overlay */
+}
+.hero-content h1 {
+    font-family: var(--main-font);
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color:white;
+}
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color:white;
+}
+.hero-btn {
+    display: inline-block;
+    padding: 12px 32px;
+    background: transparent;
+    color: #fff;
+    text-decoration: none;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background 0.2s, color 0.2s, border 0.2s;
+}
+.hero-btn:hover {
+    background: #444;
+}
+.hero-image img {
+    max-width: 400px;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+@media (max-width: 900px) {
+    .hero-section {
+        flex-direction: column;
+        text-align: center;
+    }
+    .hero-image {
+        margin-top: 30px;
+    }
+}
+{% endstylesheet %}
+
+
+
+<section
+  class="hero-section"
+  style="
+    {% if section.settings.image != blank %}
+      background-image: url('{{ section.settings.image | img_url: '1600x' }}');
+    {% endif %}
+  "
+>
+  <div class="hero-content">
+    <h1>{{ section.settings.heading }}</h1>
+    <p>{{ section.settings.subheading }}</p>
+    {% if section.settings.button_text != blank and section.settings.button_url != blank %}
+      <a href="{{ section.settings.button_url }}" class="hero-btn">
+        {{ section.settings.button_text }}
+      </a>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+    "name": "Hero Section",
+    "settings": [
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Welcome to Our Store"
+        },
+        {
+            "type": "textarea",
+            "id": "subheading",
+            "label": "Subheading",
+            "default": "Discover our latest collection and enjoy exclusive offers."
+        },
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Hero Image"
+        },
+        {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button Text",
+            "default": "Shop Now"
+        },
+        {
+            "type": "url",
+            "id": "button_url",
+            "label": "Button Link"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Hero Section",
+            "category": "Homepage",
+        }
+    ]
+}
+{% endschema %}

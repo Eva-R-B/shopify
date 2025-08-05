@@ -1,11 +1,6 @@
 <header class="site-header" style="border-bottom: 1px solid #ececec; background: #fff; padding: 24px 0;">
-    <style>
-        :root {
-            --font-main: 'Inter', Arial, sans-serif;
-            --font-menu: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
-            --color-main: #222;
-            --color-accent: #B7A266;
-        }
+{% stylesheet %}
+       
         .site-header {
                 font-family: var(--font-main);
                 color: var(--color-main);
@@ -85,7 +80,7 @@
                         justify-content: center;
                 }
         }
-    </style>
+{% endstylesheet %}
 
     <div class="header__container">
         <!-- Logo -->
