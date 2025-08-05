@@ -28,6 +28,9 @@
 </div>
 
 <style>
+:root {
+  --accent-color: #a3905bff;
+}
 .product-page {
         display: flex;
         gap: 40px;
@@ -57,7 +60,7 @@
 }
 .product-price {
         font-size: 1.5rem;
-        color: #0f4e2cff;
+        color:var(--accent-color);
         margin-bottom: 16px;
 }
 .product-form {
@@ -81,7 +84,7 @@
         font-size: 1rem;
 }
 .add-to-cart {
-        background: #0f4e2cff;
+        background: var(--accent-color);
         color: #fff;
         border: none;
         padding: 12px 32px;
@@ -91,8 +94,7 @@
         transition: background 0.2s;
 }
 .add-to-cart:hover {
-        background: #226b43;
-}
+        background: var(--accent-color);
 .product-description h2 {
         font-size: 1.2rem;
         margin-bottom: 6px;
