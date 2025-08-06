@@ -6,5 +6,33 @@
         "theme_version": "1.0.0",
         "theme_documentation_url": "https://onlinebutikeva.myshopify.com/",
         "theme_support_url": "https://onlinebutikeva.myshopify.com/issues"
+    },
+    {
+        "name": "Typography",
+        "settings": [
+            {
+                "type": "select",
+                "id": "font_main",
+                "label": "Main font",
+                "options": [
+                    { "value": "montserrat", "label": "Montserrat" },
+                    { "value": "open_sans", "label": "Open Sans" },
+                    { "value": "roboto", "label": "Roboto" }
+                ],
+                "default": "montserrat"
+            },
+            {
+                "type": "select",
+                "id": "font_menu",
+                "label": "Menu font",
+                "options": [
+                    { "value": "montserrat", "label": "Montserrat" },
+                    { "value": "open_sans", "label": "Open Sans" },
+                    { "value": "roboto", "label": "Roboto" }
+                ],
+                "default": "montserrat"
+            }
+
+        ]
     }
 ]

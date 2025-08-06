@@ -1,6 +1,17 @@
 <html>
     <head>
         {{ content_for_header }}
+        {% style %}
+          {{settings.font_main | font_face: font_display: 'swap'}}
+          {{settings.font_menu | font_face: font_display: 'swap'}}
+          /* font needs to be used in theme.css to be applied. also defined in settings_schema.json */
+            :root {
+                --font-main--family: '{{ settings.font_main }}, {{ settings.font_main.fallback_family }}';
+                --font-menu--family: '{{ settings.font_menu }}, {{ settings.font_menu.fallback_family }}';
+                --color-main: #222;
+                --color-accent: #B7A266;
+            }   
+        {% endstyle %}
         <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}">
     </head>
     <body>

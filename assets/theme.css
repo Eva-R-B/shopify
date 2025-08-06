@@ -1,11 +1,12 @@
+/* globale stil */
 :root {
     --accent-color: #a3905bff;
-    --font-main: 'Inter', Arial, sans-serif;
-    --font-menu: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
     --color-main: #222;
     --color-accent: #B7A266;
 }
-
+body {
+    font-family: var(--font-main--family, 'Montserrat', 'Helvetica Neue', sans-serif);
+}
 .container {
     max-width: 1400px;
     margin: 40px auto;
