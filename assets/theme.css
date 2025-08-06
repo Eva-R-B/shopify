@@ -7,6 +7,10 @@
 body {
     font-family: var(--font-main--family, 'Montserrat', 'Helvetica Neue', sans-serif);
 }
+h1, h2, h3, h4, h5, h6 {
+    font-family: great vibes, cursive, 'Brush Script MT', 'Comic Sans MS', sans-serif;
+    font-weight: 300;
+}
 .container {
     max-width: 1400px;
     margin: 40px auto;
@@ -17,10 +21,11 @@ body {
     margin-bottom: 5rem;
 
     .category-heading {
-        color: var(--accent-color);
         margin: 2rem 0 1.5rem;
-        font-size: 2rem;
-        font-weight: 400;
+        font-size: 2.5rem;
+        font-weight: 300;
+        text-align: center;
+        font-family: 'Great Vibes', cursive, 'Brush Script MT', 'Comic Sans MS', sans-serif;
     }
 
     .category-divider {
@@ -31,8 +36,8 @@ body {
 
     .collection-products {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 1.5rem;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
         list-style: none;
         padding: 0;
 
