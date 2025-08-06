@@ -5,7 +5,8 @@
 <section class="collection-section">
    <div class="container">
      {% if featured_collection %}
-        <h2 class="category-heading">{{ featured_collection.title }}</h2>
+        {% comment %} if section title exists, use it; otherwise, use the default collection title {% endcomment %}
+        <h2 class="category-heading">{{section.settings.section_title | default:  featured_collection.title }}</h2>
         <div class="collection-products">
             {% for product in featured_collection.products limit: section.settings.products_to_show %}
                 <div class="product-card">
@@ -32,6 +33,10 @@
 {
     "name": "Featured Collection",
     "settings": [
+        {"type": "text",
+        "id": "section_title",
+        "label": "Section Title",
+        },
         {
             "type": "collection",
             "id": "collection",

@@ -1,34 +1,6 @@
-<!-- Product Page Layout -->
-<div class="product-page">
-    <div class="product-image">
-        <img src="{{ product.featured_image | image_url: width:100%}}" alt="Product Image">
-    </div>
-    <div class="product-details">
-        <h1 class="product-title">{{ product.title }}</h1>
-        <div class="product-price">{{ product.price | money }}</div>
-        {% comment %} <form class="product-form">
-            {% comment %} <div class="product-variations">
-                <label for="variation">Choose a {{ product.options[0] }}:</label>
-                <select id="variation" name="id">{% for variant in product.variants %}<option value="{{ variant.id }}"> {{ variant.title }}</option>{% endfor %}</select>
-            </div> {% endcomment %}
-            {% comment %} <div class="product-quantity">
-                <label for="quantity">Quantity:</label>
-                <input type="number" id="quantity" name="quantity" value="1" min="1">
-            </div> {% endcomment %}
-        </form> {% endcomment %}
-        {% form 'product', product %}
-                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                <button type="submit" class="add-to-cart">Add to Cart</button>
-        {% endform %}
-        <div class="product-description">
-            <h2>Description</h2>
-            <p>{{ product.description }}</p>
-        </div>
-    </div>
-</div>
 
-<style>
 
+{% stylesheet %}
 .product-page {
         display: flex;
         gap: 40px;
@@ -93,6 +65,7 @@
 }
 .add-to-cart:hover {
         background: var(--accent-color);
+}ß
 .product-description h2 {
         font-size: 1.2rem;
         margin-bottom: 6px;
@@ -112,4 +85,48 @@
                 margin-bottom: 24px;
         }
 }
-</style>
+{%endstylesheet %}
+
+<!-- Product Page Layout -->
+<div class="product-page">
+    <div class="product-image">
+        <img src="{{ product.featured_image | image_url: width:400}}" alt="Product Image">
+    </div>
+    <div class="product-details">
+        <h1 class="product-title">{{ product.title }}</h1>
+        <div class="product-price">{{ product.price | money }}</div>
+        {% comment %} <form class="product-form">
+            {% comment %} <div class="product-variations">
+                <label for="variation">Choose a {{ product.options[0] }}:</label>
+                <select id="variation" name="id">{% for variant in product.variants %}<option value="{{ variant.id }}"> {{ variant.title }}</option>{% endfor %}</select>
+            </div> {% endcomment %}
+            {% comment %} <div class="product-quantity">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" value="1" min="1">
+            </div> {% endcomment %}
+        </form> {% endcomment %}
+        {% form 'product', product %}
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                <button type="submit" class="add-to-cart">Add to Cart</button>
+        {% endform %}
+        <div class="product-description">
+            <h2>Description</h2>
+            <p>{{ product.description }}</p>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "Main product",
+    "tag": "section",
+    "settings": [],
+    "blocks": [],
+    "presets": [
+        {
+            "name": "Main product",
+            "category": "Product"
+        }
+    ]
+}
+{% endschema %}
