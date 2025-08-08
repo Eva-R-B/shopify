@@ -7,10 +7,10 @@
 body {
     font-family: var(--font-main--family, 'Montserrat', 'Helvetica Neue', sans-serif);
 }
-h1, h2, h3, h4, h5, h6 {
+/* h1, h2, h3, h4, h5, h6 {
     font-family: great vibes, cursive, 'Brush Script MT', 'Comic Sans MS', sans-serif;
     font-weight: 300;
-}
+} */
 .container {
     max-width: 1400px;
     margin: 40px auto;
