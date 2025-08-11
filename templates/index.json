@@ -9,6 +9,7 @@
     }
   },
   "order": [
-    "hero"
+    "hero",
+    "featured-collection",
   ]
 }
