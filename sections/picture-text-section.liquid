@@ -1,0 +1,102 @@
+{% schema %}
+{
+    "name": "Picture Text Section",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+        },
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Lorem Ipsum Dolor"
+        },
+        {
+            "type": "textarea",
+            "id": "text",
+            "label": "Text",
+            "default": "LLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        },
+        {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button Text",
+            "default": "Learn More"
+        },
+        {
+            "type": "url",
+            "id": "button_link",
+            "label": "Button Link"
+        },
+        {
+            "type": "select",
+            "id": "image_position",
+            "label": "Image Position",
+            "options": [
+                { "value": "left", "label": "Left" },
+                { "value": "right", "label": "Right" }
+            ],
+            "default": "left"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Picture Text Section",
+            "category": "Custom Sections",
+            
+        }
+    ]
+}
+{% endschema %}
+
+<style>
+.picture-text-section {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 40px 24px;
+}
+.picture-text-section--reverse {
+    flex-direction: row-reverse;
+}
+.picture-text-section__image {
+    flex: 1;
+}
+.picture-text-section__content {
+    flex: 1;
+}
+.picture-text-section__title {
+    font-family: var(--title-style, 'Great Vibes', cursive, 'Brush Script MT', 'Comic Sans MS', sans-serif);
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+.picture-text-section__text {
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 1rem;
+    margin-bottom: 24px;
+}
+</style>
+
+<div class="picture-text-section{% if section.settings.image_position == 'right' %} picture-text-section--reverse{% endif %}">
+    <div class="picture-text-section__image">
+        {% if section.settings.image != blank %}
+            <img src="{{ section.settings.image | img_url: '800x' }}" alt="{{ section.settings.title | escape }}" style="width: 100%; height: auto; display: block;">
+        {% else %}
+            <div style="background: #eee; width: 100%; height: 300px; display: flex; align-items: center; justify-content: center; color: #aaa;">
+                Image
+            </div>
+        {% endif %}
+    </div>
+    <div class="picture-text-section__content">
+        <h2 class="picture-text-section__title">{{ section.settings.title }}</h2>
+        <p class="picture-text-section__text">{{ section.settings.text }}</p>
+        {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+            <a href="{{ section.settings.button_link }}" class="btn" style="display: inline-block; padding: 10px 24px; background: #222; color: #fff; text-decoration: none; border-radius: 4px;">
+                {{ section.settings.button_text }}
+            </a>
+        {% endif %}
+    </div>
+</div>
