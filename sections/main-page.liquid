@@ -1,0 +1,85 @@
+{% stylesheet %}
+.about-page {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 32px;
+    background: #fff;
+    border-radius: 8px;
+    font-family: inherit;
+    color: #222;
+}
+.about-page h1 {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+    color: #1a202c;
+    font-weight: 700;
+    text-align: center;
+}
+.about-page h2 {
+    font-size: 1.5rem;
+    margin-top: 32px;
+    margin-bottom: 12px;
+    font-weight: 600;
+    text-align: center;
+}
+.about-page p {
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+    line-height: 1.7;
+    text-align: center;
+}
+.about-list-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+.about-list-container ul {
+    list-style: disc inside;
+    padding-left: 0;
+    margin: 0;
+    text-align: left;
+}
+.about-page li {
+    margin-bottom: 8px;
+    font-size: 1.05rem;
+}
+.about-page a {
+    color: #b3984fff;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+.about-page a:hover {
+    color: #b3984fff;
+}
+{% endstylesheet %}
+
+<div class="container about-page">
+    <h1>About Our Shop</h1>
+    <p>Welcome to our store! We are passionate about providing quality products and excellent customer service.</p>
+    <h2>Our Story</h2>
+    <p>Founded in [Year], our shop has grown from a small local business to a trusted online destination for shoppers worldwide.Founded in [Year], our shop has grown from a small local business to a trusted online destination for shoppers worldwide.Founded in [Year], our shop has grown from a small local business to a trusted online destination for shoppers worldwide.</p>
+    <h2>Our Values</h2>
+    <div class="about-list-container">
+        <ul>
+            <li>Quality Products</li>
+            <li>Customer Satisfaction</li>
+            <li>Fast Shipping</li>
+            <li>Friendly Support</li>
+        </ul>
+    </div>
+    <h2>Contact Us</h2>
+    <p>If you have any questions, feel free to <a href="/pages/contact">contact us</a>.</p>
+</div>
+
+{% schema %}
+{
+    "name": "Template Page",
+    "settings": [],
+    "presets": [
+        {
+            "name": "Template Page",
+            "category": "Custom"
+        }
+    ]
+}
+{% endschema %}

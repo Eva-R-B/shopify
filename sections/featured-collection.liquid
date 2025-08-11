@@ -1,4 +1,6 @@
-
+{% comment %} 
+depending on where the featured collection is places, it is gonna show products from that specific settings. you can change the titel, and the number of products to show.
+if you change the settings in one section, it will not affect the other sections. {% endcomment %}
 
 {% assign featured_collection = collections[section.settings.collection] %}
 
@@ -23,7 +25,7 @@
             {% endfor %}
         </div>
     {% else %}
-        <p>No collection selected or collection is empty.</p>
+        <p style="color:black">No collection selected or collection is empty.</p>
     {% endif %}
    </div>
 

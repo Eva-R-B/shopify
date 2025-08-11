@@ -1,0 +1,8 @@
+// we can put in json structure, text, and we can bring it to the front end with liquid 
+
+{
+    "cart": {
+        "title": "Your cart",
+        "description": "Your shopping cart is empty."
+    },
+}
