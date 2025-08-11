@@ -95,13 +95,21 @@
         font-size: 1.2rem;
         margin: 40px 0;
     }
+    .continue-shopping-btn {
+        margin: 20px auto 0 auto;
+        max-width: 250px;
+        display: block;
+    }
 </style>
 
 <div class="cart-container">
     <h1 class="cart-title">{{ 'cart.title' | t }}</h1>
 
     {% if cart.item_count == 0 %}
-        <div class="empty-cart">Your cart is empty.</div>
+        <div class="empty-cart">{{ 'cart.empty' | t }}
+            <br>
+            <a href="/collections/all" class="checkout-btn continue-shopping-btn">{{ 'cart.continue_shopping' | t }}</a>
+        </div>
     {% else %}
         <table class="cart-table">
             <thead>

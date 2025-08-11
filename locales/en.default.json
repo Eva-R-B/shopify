@@ -3,6 +3,7 @@
 {
     "cart": {
         "title": "Your cart",
-        "description": "Your shopping cart is empty."
+        "empty": "Your shopping cart is empty.",
+        "continue_shopping": "Continue shopping",
     },
 }
