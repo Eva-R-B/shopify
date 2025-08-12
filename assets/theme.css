@@ -7,7 +7,6 @@
 }
 body {
     font-family: var(--font-main--family, 'Montserrat', 'Helvetica Neue', sans-serif);
-    max-width: 1400px;
 margin: auto;
 }
 /* h1, h2, h3, h4, h5, h6 {
