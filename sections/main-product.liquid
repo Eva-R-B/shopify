@@ -29,12 +29,13 @@
                 .product-title {
                         font-size: 2rem;
                         margin-bottom: 8px;
+                        text-align: left;
                 }
 
                 .product-price {
-                        font-size: 1.5rem;
-                        color: var(--accent-color);
+                        font-size: 1.1rem;
                         margin-bottom: 16px;
+                        padding:  10px 0 10px 0;
                 }
 
                 .product-form {
@@ -111,7 +112,8 @@
     <div class="product-details">
         <h1 class="product-title">{{ product.title }}</h1>
         <div class="product-price">{{ product.price | money }}</div>
-        {% comment %} <form class="product-form">
+        {% comment %} THIS IS PRODUCT VARIATIONS AND QUANTITY INPUT
+         <form class="product-form">
             {% comment %} <div class="product-variations">
                 <label for="variation">Choose a {{ product.options[0] }}:</label>
                 <select id="variation" name="id">{% for variant in product.variants %}<option value="{{ variant.id }}"> {{ variant.title }}</option>{% endfor %}</select>
@@ -136,8 +138,28 @@
 {
     "name": "Main product",
     "tag": "section",
-    "settings": [],
-    "blocks": [],
+    "blocks": [
+        {
+            "type": "title",
+            "name": "Title",
+        },
+        {
+            "type": "description",
+            "name": "Description"
+        },
+        {
+            "type": "image",
+            "name": "Image"
+        },
+        {
+            "type": "price",
+            "name": "Price"
+        },
+        {
+            "type": "add_to_cart",
+            "name": "Add to Cart Button"
+        }
+    ],
     "presets": [
         {
             "name": "Main product",

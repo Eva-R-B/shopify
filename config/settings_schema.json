@@ -31,8 +31,11 @@
                     { "value": "roboto", "label": "Roboto" }
                 ],
                 "default": "montserrat"
-            }
+            },
+            { "type": "url", "id": "social_facebook", "label": "Facebook URL" },
+            { "type": "url", "id": "social_instagram", "label": "Instagram URL" },
+            { "type": "url", "id": "social_linkedin", "label": "LinkedIn URL" }
 
-        ]
+            ]
     }
 ]

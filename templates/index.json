@@ -6,10 +6,16 @@
         "title": "Welcome to Our Store",
         "subtitle": "Discover our latest products"
       }
+    },
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Featured Collection",
+        "collection_handle": "frontpage"
+      }
     }
   },
   "order": [
-    "hero",
-    "featured-collection",
+    "hero", "featured-collection"
   ]
 }

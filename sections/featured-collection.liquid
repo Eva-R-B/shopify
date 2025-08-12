@@ -24,9 +24,13 @@ if you change the settings in one section, it will not affect the other sections
 
             {% endfor %}
         </div>
-    {% else %}
-        <p style="color:black">No collection selected or collection is empty.</p>
     {% endif %}
+
+    {% comment %} empty message {% endcomment %}
+      {% if section.settings.collection == blank %}
+    <p class="featured-collection-empty">Please select a collection to feature.</p>
+      {% endif %}
+
    </div>
 
 </section>
