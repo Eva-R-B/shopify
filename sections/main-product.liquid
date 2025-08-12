@@ -114,14 +114,13 @@
                 {% case block.type %}
                         {% when 'title' %}
                         <h1 class="product-title">{{ product.title }}</h1>
+                         {% when 'price' %}
+                        <div class="product-price">{{ product.price | money }}</div>
                         {% when 'description' %}
                         <div class="product-description">
                                 <p>{{ product.description }}</p>
                         </div>
-                        {% when 'image' %}
-                        <img src="{{ block.settings.image | image_url: width:400 }}" alt="{{ product.title }}">
-                        {% when 'price' %}
-                        <div class="product-price">{{ product.price | money }}</div>
+                       
                         {% when 'add_to_cart' %}
                         <form class="product-form" method="post" action="/cart/add">
                                 <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
@@ -175,16 +174,12 @@
             "name": "Title",
         },
         {
-            "type": "description",
-            "name": "Description"
-        },
-        {
-            "type": "image",
-            "name": "Image"
-        },
-        {
             "type": "price",
             "name": "Price"
+        },
+        {
+            "type": "description",
+            "name": "Description"
         },
         {
             "type": "add_to_cart",
@@ -198,19 +193,16 @@
             "blocks": [
                 {
                     "type": "title",
-                    "name": "Title"
-                },
-                {
-                    "type": "description",
-                    "name": "Description"
-                },
-                {
-                    "type": "image",
-                    "name": "Image"
+                    "name": "Title",
+                    
                 },
                 {
                     "type": "price",
                     "name": "Price"
+                },
+                {
+                    "type": "description",
+                    "name": "Description"
                 },
                 {
                     "type": "add_to_cart",
