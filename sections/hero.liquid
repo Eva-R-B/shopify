@@ -6,7 +6,7 @@
     --color-accent: #B7A266;
 }
 .hero-section {
-    width:100%;
+
     background-color: #f8f8f8;
     background-size: cover;
     background-position: center;
@@ -82,15 +82,21 @@
   class="hero-section"
   style="
     {% if section.settings.image != blank %}
-      background-image: url('{{ section.settings.image | img_url: '1600x' }}');
-    {% endif %}
+  background-image: url('{{ section.settings.image | img_url: '1600x' }}');
+{% else %}
+  background-image: url('{{ 'frontpage.jpg' | asset_url }}');
+{% endif %}
   "
 >
   <div class="hero-content">
     <h1>{{ section.settings.heading }}</h1>
     <p>{{ section.settings.subheading }}</p>
-    {% if section.settings.button_text != blank and section.settings.button_url != blank %}
-      <a href="{{ section.settings.button_url }}" class="hero-btn">
+    {% assign button_url = section.settings.button_url %}
+    {% if button_url == blank %}
+      {% assign button_url = routes.collections_url %}
+    {% endif %}
+    {% if section.settings.button_text != blank %}
+      <a href="{{ button_url }}" class="hero-btn">
         {{ section.settings.button_text }}
       </a>
     {% endif %}
@@ -133,7 +139,7 @@
     "presets": [
         {
             "name": "Hero Section",
-            "category": "Homepage",
+            "category": "Homepage"
         }
     ]
 }
