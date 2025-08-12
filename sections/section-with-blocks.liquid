@@ -1,0 +1,49 @@
+Picture-section-section.liquid
+
+“
+
+<style>
+.picture-text-section {
+display: flex;
+align-items: center;
+gap: 40px;
+padding: 40px 24px;
+}
+.picture-text-section--reverse {
+flex-direction: row-reverse;
+}
+.picture-text-section__image {
+flex: 1;
+}
+.picture-text-section__content {
+flex: 1;
+}
+.picture-text-section__title {
+font-size: 2rem;
+font-weight: 400;
+margin-bottom: 16px;
+color: var(--accent-color);
+}
+.picture-text-section__text {
+font-family: 'Open Sans', Arial, sans-serif;
+font-size: 1rem;
+margin-bottom: 24px;
+}
+</style>
+
+<div class="picture-text-section{% if section.settings.image_position == 'right' %} picture-text-section--reverse{% endif %}">
+   {% content_for 'blocks' %}
+</div>
+
+{% schema %}
+{
+    "name": "Picture Text Section",
+    "blocks": [
+        {
+            "type": "@theme",
+        }
+    ]
+}
+{% endschema %}
+"
+

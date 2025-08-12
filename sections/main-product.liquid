@@ -1,6 +1,6 @@
 
 
-{% stylesheet %}
+{%stylesheet %}
 .product-page {
         display: flex;
         gap: 40px;
@@ -73,7 +73,6 @@
                     .add-to-cart:hover {
                         background: var(--accent-color);
                     }
-                }
 
                 .product-description {
                         h2 {
@@ -103,16 +102,41 @@
         }
 }
 {%endstylesheet %}
-
+</style>
 <!-- Product Page Layout -->
 <div class="product-page">
     <div class="product-image">
         <img src="{{ product.featured_image | image_url: width:400}}" alt="Product Image">
     </div>
     <div class="product-details">
+
+        {%  for block in section.blocks %}
+                {% case block.type %}
+                        {% when 'title' %}
+                        <h1 class="product-title">{{ product.title }}</h1>
+                        {% when 'description' %}
+                        <div class="product-description">
+                                <p>{{ product.description }}</p>
+                        </div>
+                        {% when 'image' %}
+                        <img src="{{ block.settings.image | image_url: width:400 }}" alt="{{ product.title }}">
+                        {% when 'price' %}
+                        <div class="product-price">{{ product.price | money }}</div>
+                        {% when 'add_to_cart' %}
+                        <form class="product-form" method="post" action="/cart/add">
+                                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                                <button type="submit" class="add-to-cart">Add to Cart</button>
+                        </form>
+                {% endcase %}
+                {% endfor %}
+
+
+        {% comment %} deleted this code becasue we do it with blocks instead
         <h1 class="product-title">{{ product.title }}</h1>
-        <div class="product-price">{{ product.price | money }}</div>
-        {% comment %} THIS IS PRODUCT VARIATIONS AND QUANTITY INPUT
+        <div class="product-price">{{ product.price | money }}</div> {% endcomment %}
+
+
+        {% comment %} THIS IS PRODUCT VARIATIONS AND QUANTITY INPUT - was deleted temporarily
          <form class="product-form">
             {% comment %} <div class="product-variations">
                 <label for="variation">Choose a {{ product.options[0] }}:</label>
@@ -123,6 +147,9 @@
                 <input type="number" id="quantity" name="quantity" value="1" min="1">
             </div> {% endcomment %}
         </form> {% endcomment %}
+
+        
+{% comment %} deleted this code becasue we do it with blocks instead
         {% form 'product', product %}
                 <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
                 <button type="submit" class="add-to-cart">Add to Cart</button>
@@ -130,7 +157,7 @@
         <div class="product-description">
             <h2>Description</h2>
             <p>{{ product.description }}</p>
-        </div>
+        </div> {% endcomment %}
     </div>
 </div>
 
@@ -139,6 +166,10 @@
     "name": "Main product",
     "tag": "section",
     "blocks": [
+        {
+            "type": "app",
+            "name": "App Block"
+        },
         {
             "type": "title",
             "name": "Title",
@@ -163,7 +194,29 @@
     "presets": [
         {
             "name": "Main product",
-            "category": "Product"
+            "category": "Product",
+            "blocks": [
+                {
+                    "type": "title",
+                    "name": "Title"
+                },
+                {
+                    "type": "description",
+                    "name": "Description"
+                },
+                {
+                    "type": "image",
+                    "name": "Image"
+                },
+                {
+                    "type": "price",
+                    "name": "Price"
+                },
+                {
+                    "type": "add_to_cart",
+                    "name": "Add to Cart Button"
+                }
+            ]
         }
     ]
 }
