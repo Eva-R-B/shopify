@@ -17,6 +17,8 @@
 }
 
 .contact-page p {
+    max-width: 800px;
+    margin: 0 auto;
     font-size: 1.1rem;
     margin-bottom: 16px;
     line-height: 1.7;
@@ -66,8 +68,6 @@
     <div class="page-content">
         {{ page.content }}
     </div>
-    
-   
     
     <form class="contact-form" method="post" action="/contact">
         <label for="contact-name">Name *</label>
