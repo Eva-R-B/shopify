@@ -108,6 +108,7 @@
     <div class="product-image">
         <img src="{{ product.featured_image | image_url: width:400}}" alt="Product Image">
     </div>
+    <div class="product-details">
         {%  for block in section.blocks %}
                 {% case block.type %}
                         {% when 'title' %}
