@@ -1,0 +1,59 @@
+
+{% comment %}
+    Responsive Image Block with Placeholder
+{% endcomment %}
+
+<style>
+.responsive-image-block {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.responsive-image-block.placeholder {
+    opacity: 0.5;
+    width:400px;
+    height: 400px;
+}
+</style>
+
+{% if block.settings.image != blank %}
+    <img 
+        class="responsive-image-block"
+        src="{{ block.settings.image | image_url: width: 800 }}" 
+        srcset="
+            {{ block.settings.image | image_url: width: 400 }} 400w,
+            {{ block.settings.image | image_url: width: 800 }} 800w,
+            {{ block.settings.image | image_url: width: 1200 }} 1200w
+        "
+        sizes="(max-width: 600px) 100vw, 600px"
+        alt="{{ block.settings.image.alt | escape }}"
+        loading="lazy"
+    >
+{% else %}
+    <img 
+        class="responsive-image-block placeholder"
+        src="{{ 'placeholder.png' | asset_url }}" 
+        alt="Placeholder image"
+        loading="lazy"
+    >
+{% endif %}
+
+
+
+{% schema %}
+{
+    "name": "Responsive Image",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Responsive Image"
+        }
+    ]
+}
+{% endschema %}

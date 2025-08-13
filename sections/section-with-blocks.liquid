@@ -1,38 +1,40 @@
-Picture-section-section.liquid
 
-“
 
 <style>
-.picture-text-section {
-display: flex;
-align-items: center;
-gap: 40px;
-padding: 40px 24px;
+.customizable-section {
+    max-width: 1400px; 
+    margin: 0 auto;     
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 40px 24px;
 }
-.picture-text-section--reverse {
-flex-direction: row-reverse;
+.customizable-section--reverse {
+    flex-direction: row-reverse;
 }
-.picture-text-section__image {
+.customizable-section__image {
 flex: 1;
 }
-.picture-text-section__content {
-flex: 1;
+.customizable-section__content {
+    flex: 1;
 }
-.picture-text-section__title {
+.customizable-section__title {
 font-size: 2rem;
 font-weight: 400;
 margin-bottom: 16px;
 color: var(--accent-color);
 }
-.picture-text-section__text {
+.customizable-section__text {
 font-family: 'Open Sans', Arial, sans-serif;
 font-size: 1rem;
 margin-bottom: 24px;
 }
 </style>
 
-<div class="picture-text-section{% if section.settings.image_position == 'right' %} picture-text-section--reverse{% endif %}">
+{% comment %} placeholder for blocks {% endcomment %}
+<div class="customizable-section{% if section.settings.image_position == 'right' %} customizable-section--reverse{% endif %}">
    {% content_for 'blocks' %}
+   {% comment %} here blocks will be inserted {% endcomment %}
 </div>
 
 {% schema %}
@@ -42,8 +44,14 @@ margin-bottom: 24px;
         {
             "type": "@theme",
         }
-    ]
+    ],
+    "presets": [
+        {
+            "name": "Custom Section",
+            "category": "Custom Sections"
+        }
+    ],
 }
 {% endschema %}
-"
+
 

@@ -35,6 +35,11 @@ font-family: 'Open Sans', Arial, sans-serif;
 font-size: 1rem;
 margin-bottom: 24px;
 }
+.responsive-image-block.placeholder {
+    opacity: 0.5;
+    width:400px;
+    height: 400px;
+}
 </style>
 
 <div class="picture-text-section{% if section.settings.image_position == 'right' %} picture-text-section--reverse{% endif %}">
@@ -42,9 +47,12 @@ margin-bottom: 24px;
         {% if section.settings.image != blank %}
         <img src="{{ section.settings.image | img_url: '900x' }}" alt="{{ section.settings.title | escape }}" class="imgclass">
         {% else %}
-        <div style="background: #eee; width: 100%; height: 300px; display: flex; align-items: center; justify-content: center; color: #aaa;">
-        Image
-        </div>
+    <img 
+        class="responsive-image-block placeholder"
+        src="{{ 'placeholder.png' | asset_url }}" 
+        alt="Placeholder image"
+        loading="lazy"
+    >
         {% endif %}
     </div>
     <div class="picture-text-section__content">

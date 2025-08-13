@@ -1,6 +1,7 @@
 
-<div class="block-group">
-   {% content_for 'blocks' %}
+
+<div class="group">
+     {% content_for 'blocks' %}
 </div>
 
 {% schema %}
@@ -10,6 +11,14 @@
         {
             "type": "@theme",
         }
-    ]
+    ],
+    "presets": [
+        {
+            "name": "Group",
+            "category": "Custom Sections",
+            "category": "layout"
+        }
+    ],
+    "settings": [],
 }
 {% endschema %}
