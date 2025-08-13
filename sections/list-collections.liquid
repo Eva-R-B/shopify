@@ -1,0 +1,81 @@
+{% comment %}
+    This section displays all collections in a responsive grid.
+{% endcomment %}
+
+<style>
+.all-collections-grid .grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+.grid__item {
+    text-align: center;
+    background: #fff;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: box-shadow 0.2s;
+}
+.grid__item:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+}
+.collection-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 0.75rem;
+}
+.collection-placeholder {
+    width: 100%;
+    height: 180px;
+    background: #f2f2f2;
+    border-radius: 6px;
+    margin-bottom: 0.75rem;
+}
+.collection-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #222;
+    margin: 0;
+}
+.collection-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+</style>
+
+<div class="all-collections-grid">
+    <div class="grid">
+        {% for collection in collections %}
+            <div class="grid__item">
+                <a href="{{ collection.url }}" class="collection-link">
+                    {% if collection.image %}
+                        <img src="{{ collection.image | img_url: '480x480' }}" alt="{{ collection.title | escape }}" class="collection-image" />
+                    {% else %}
+                        <div class="collection-placeholder"></div>
+                    {% endif %}
+                    <h3 class="collection-title">{{ collection.title }}</h3>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": "All Collections Grid",
+  "tag": "section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "All Collections"
+    }
+  ]
+}
+{% endschema %}

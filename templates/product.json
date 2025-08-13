@@ -1,10 +1,30 @@
 {
     "sections": {
-        "main":{
-            "type": "main-product"
+        "main": {
+            "type": "main-product",
+            "blocks": {
+                "title": {
+                    "type": "title"
+                },
+                "price": {
+                    "type": "price"
+                },
+                "description": {
+                    "type": "description"
+                },
+                "add_to_cart": {
+                    "type": "add_to_cart"
+                }
+            },
+            "block_order": [
+                "title",
+                "price",
+                "description",
+                "add_to_cart"
+            ]
         }
     },
     "order": [
         "main"
-    ],
+    ]
 }

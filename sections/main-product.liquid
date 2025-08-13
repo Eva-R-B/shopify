@@ -108,8 +108,6 @@
     <div class="product-image">
         <img src="{{ product.featured_image | image_url: width:400}}" alt="Product Image">
     </div>
-    <div class="product-details">
-
         {%  for block in section.blocks %}
                 {% case block.type %}
                         {% when 'title' %}
@@ -129,7 +127,8 @@
                 {% endcase %}
                 {% endfor %}
 
-
+    </div>
+</div>
         {% comment %} deleted this code becasue we do it with blocks instead
         <h1 class="product-title">{{ product.title }}</h1>
         <div class="product-price">{{ product.price | money }}</div> {% endcomment %}
@@ -157,8 +156,7 @@
             <h2>Description</h2>
             <p>{{ product.description }}</p>
         </div> {% endcomment %}
-    </div>
-</div>
+
 
 {% schema %}
 {
