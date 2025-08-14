@@ -2,6 +2,8 @@
 depending on where the featured collection is places, it is gonna show products from that specific settings. you can change the titel, and the number of products to show.
 if you change the settings in one section, it will not affect the other sections. {% endcomment %}
 
+
+
 {% assign featured_collection = collections[section.settings.collection] %}
 
 <section class="collection-section">
@@ -26,9 +28,26 @@ if you change the settings in one section, it will not affect the other sections
         </div>
     {% endif %}
 
-    {% comment %} empty message {% endcomment %}
+    {% comment %} EMPTY MESSAGE: SELECT A COLLECTION {% endcomment %}
+        {% comment %} <p class="featured-collection-empty">Please select a collection to feature.</p> {% endcomment %}
+
+{% comment %} changed it to a default featured collection if it´s nothing selected    {% endcomment %}
       {% if section.settings.collection == blank %}
-    <p class="featured-collection-empty">Please select a collection to feature.</p>
+     <section class="collection-section">
+    <h2 class="category-heading" style="color: var(--accent-color);">Featured products</h2>
+    <ul class="collection-products">
+      {% for product in collections['featured-products'].products %}
+        <li class="product-card">
+          <a href="{{ product.url }}">
+            <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
+            <h2>{{ product.title }}</h2>
+            <p>{{ product.price | money }}</p>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+    <hr class="category-divider">
+  </section>
       {% endif %}
 
    </div>
