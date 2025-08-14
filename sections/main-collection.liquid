@@ -71,26 +71,11 @@
 
 <!-- Collection Page . or called Catalog in shopify -->
 {% comment %} collection with all products {% endcomment %}
-<div class="container">
+{% comment %} <div class="container"> {% endcomment %}
 
-  <!-- Kvinde kategori -->
-  <section class="collection-section">
-    <h2 class="category-heading">Kvinde kategori produkter</h2>
-    <ul class="collection-products">
-      {% for product in collections['kvinde-kategori'].products %}
-        <li class="product-card">
-          <a href="{{ product.url }}">
-            <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
-            <h2>{{ product.title }}</h2>
-            <p>{{ product.price | money }}</p>
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
-    <hr class="category-divider">
-  </section>
 
-  <!-- Mænd kategori -->
+
+  {% comment %} <!-- Mænd kategori -->
   <section class="collection-section">
     <h2 class="category-heading">Mænd kategori produkter</h2>
     <ul class="collection-products">
@@ -123,4 +108,4 @@
     </ul>
   </section>
 
-</div>
+</div> {% endcomment %}

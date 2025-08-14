@@ -8,7 +8,7 @@
         {% if section.settings.bg_type == 'image' and section.settings.bg_image != blank %}
             url({{ section.settings.bg_image | img_url: '1500x' }}) center/cover no-repeat
         {% else %}
-            {{ section.settings.bg_color | default: '#fafafa' }}
+            {{ section.settings.bg_color | default: '#FFFAF6' }}
         {% endif %};
     padding: 82px 24px 88px 24px;
     border-radius: 12px;

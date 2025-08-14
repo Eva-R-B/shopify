@@ -5,17 +5,12 @@
         "collections-list": {
             "type": "list-collections"
         },
-        "list-all-products": {
-            "type": "list-all-products"
-        },
         "main": {
-            "type": "main-collection"
+            "type": "collections-subcollection"
         }
     },
     "order": [
         "collections-list",
-        "list-all-products",
         "main"
-        
     ]
 }

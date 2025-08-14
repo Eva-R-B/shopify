@@ -3,21 +3,24 @@
 {% endcomment %}
 
 <style>
+    .background-color-on-section{
+        background-color: #FFFAF6;
+        padding-bottom: 3rem;
+    }
 .all-collections-grid .category-heading {
   color: var(--accent-color);
-  margin: 2rem 0 1.5rem;
+  padding: 2rem 0 1.5rem;
+  margin: 0;
   text-align: center;
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 300;
 }
 .all-collections-grid .grid {
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 2rem;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    gap: 1rem;
 }
 .grid__item {
     text-align: center;
@@ -28,8 +31,8 @@
 }
 
 .collection-image {
-    width: 300px;
-    height: 250px;
+    width: 250px;
+    height: 190px;
     object-fit: cover;
     border-radius: 6px;
     margin-bottom: 0.75rem;
@@ -54,9 +57,9 @@
 }
 
 </style>
-
+<div class="background-color-on-section">
 <div class="all-collections-grid">
-      <h2 class="category-heading">Shop efter kategorier</h2>
+      <h1 class="category-heading">Shop efter kategorier</h1>
     <div class="grid">
         {% for collection in collections %} 
             <div class="grid__item">
@@ -71,6 +74,7 @@
             </div>
         {% endfor %}
     </div>
+</div>
 </div>
 
 {% schema %}
