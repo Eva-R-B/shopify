@@ -1,0 +1,140 @@
+<style>
+.all-products-section {
+  margin-bottom: 5rem;
+  padding: 2rem 0;
+}
+
+.all-products-heading {
+  color: var(--accent-color);
+  margin: 2rem 0 1.5rem;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.all-products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  list-style: none;
+  padding: 0;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.product-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.product-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border-color: var(--accent-color);
+}
+
+.product-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid #eee;
+  display: block;
+}
+
+.product-card h2 {
+  font-size: 1.2rem;
+  margin: 16px 12px 8px 12px;
+  color: #222;
+  font-weight: 500;
+}
+
+.product-card p {
+  margin: 0 12px 16px 12px;
+  color: var(--accent-color);
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.product-card a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.products-count {
+  text-align: center;
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+
+@media (max-width: 768px) {
+  .all-products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+}
+</style>
+
+<div class="container">
+  <section class="all-products-section">
+    <h1 class="all-products-heading">All Products</h1>
+    
+    {% assign total_products = 0 %}
+    {% for collection in collections %}
+      {% assign total_products = total_products | plus: collection.products_count %}
+    {% endfor %}
+    
+    <p class="products-count">Showing all {{ collections.all.products.size }} products</p>
+    
+    <ul class="all-products-grid">
+      {% for product in collections.all.products %}
+        <li class="product-card">
+          <a href="{{ product.url }}">
+            {% if product.featured_image %}
+              <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
+            {% else %}
+              <div style="width: 100%; height: 200px; background: #f7f7f7; display: flex; align-items: center; justify-content: center; color: #999;">
+                No Image
+              </div>
+            {% endif %}
+            <h2>{{ product.title }}</h2>
+            <p>{{ product.price | money }}</p>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+    
+    {% if collections.all.products.size == 0 %}
+      <div style="text-align: center; padding: 3rem; color: #666;">
+        <p>No products found.</p>
+      </div>
+    {% endif %}
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "All Products List",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "All Products"
+    }
+  ],
+  "presets": [
+    {
+      "name": "All Products List",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}

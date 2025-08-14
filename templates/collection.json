@@ -1,7 +1,12 @@
+// this is the collection page for a Shopify store.
+
 {
     "sections": {
         "collections-list": {
             "type": "list-collections"
+        },
+        "list-all-products": {
+            "type": "list-all-products"
         },
         "main": {
             "type": "main-collection"
@@ -9,6 +14,8 @@
     },
     "order": [
         "collections-list",
+        "list-all-products",
         "main"
+        
     ]
 }
