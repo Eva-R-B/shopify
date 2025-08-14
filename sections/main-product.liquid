@@ -17,6 +17,41 @@
                         object-fit: cover;
                         border-radius: 8px;
                         background: #f7f7f7;
+                        cursor: zoom-in;
+                        transition: transform 0.2s ease;
+                }
+                
+                img:hover {
+                        transform: scale(1.02);
+                }
+        }
+
+        .product-thumbnails {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+                gap: 8px;
+                margin-top: 12px;
+                max-width: 400px;
+
+                .thumbnail {
+                        width: 80px;
+                        height: 80px;
+                        object-fit: cover;
+                        border-radius: 4px;
+                        border: 2px solid transparent;
+                        cursor: pointer;
+                        transition: all 0.2s ease;
+                        opacity: 0.8;
+                }
+
+                .thumbnail:hover {
+                        opacity: 1;
+                        transform: scale(1.05);
+                }
+
+                .thumbnail.active {
+                        border-color: var(--accent-color);
+                        opacity: 1;
                 }
         }
 
@@ -98,6 +133,15 @@
                                 height: auto;
                                 margin-bottom: 24px;
                         }
+                        
+                        .product-thumbnails {
+                                max-width: 100%;
+                                
+                                .thumbnail {
+                                        width: 60px;
+                                        height: 60px;
+                                }
+                        }
                 }
         }
 }
@@ -106,7 +150,20 @@
 <!-- Product Page Layout -->
 <div class="product-page">
     <div class="product-image">
-        <img src="{{ product.featured_image | image_url: width:400}}" alt="Product Image">
+        <img id="main-product-image" src="{{ product.featured_image | image_url: width:400}}" alt="Product Image">
+        
+        <!-- Product Thumbnails -->
+        {% if product.images.size > 1 %}
+            <div class="product-thumbnails">
+                {% for image in product.images %}
+                    <img class="thumbnail{% if forloop.first %} active{% endif %}" 
+                         src="{{ image | image_url: width:160}}" 
+                         alt="{{ product.title }}"
+                         data-full-image="{{ image | image_url: width:800}}"
+                         onclick="changeMainImage(this)">
+                {% endfor %}
+            </div>
+        {% endif %}
     </div>
     <div class="product-details">
         {%  for block in section.blocks %}
@@ -130,6 +187,63 @@
 
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Product image gallery initialized');
+    
+    // Make sure the function is available globally
+    window.changeMainImage = function(thumbnail) {
+        console.log('Thumbnail clicked');
+        
+        // Get the main image element
+        const mainImage = document.getElementById('main-product-image');
+        console.log('Main image element:', mainImage);
+        
+        if (!mainImage) {
+            console.error('Main image element not found');
+            return;
+        }
+        
+        // Get the full-size image URL from the clicked thumbnail
+        const newImageSrc = thumbnail.getAttribute('data-full-image');
+        console.log('New image src:', newImageSrc);
+        
+        if (!newImageSrc) {
+            console.error('No data-full-image attribute found');
+            return;
+        }
+        
+        // Update the main image
+        mainImage.src = newImageSrc;
+        
+        // Update active state for thumbnails
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        thumbnails.forEach(thumb => thumb.classList.remove('active'));
+        thumbnail.classList.add('active');
+        
+        // Add loading state
+        mainImage.style.opacity = '0.7';
+        mainImage.onload = function() {
+            mainImage.style.opacity = '1';
+            console.log('Image loaded successfully');
+        };
+        
+        mainImage.onerror = function() {
+            console.error('Failed to load image:', newImageSrc);
+            mainImage.style.opacity = '1';
+        };
+    };
+    
+    // Also add click listeners as backup
+    const thumbnails = document.querySelectorAll('.thumbnail');
+    thumbnails.forEach(thumbnail => {
+        thumbnail.addEventListener('click', function() {
+            window.changeMainImage(this);
+        });
+    });
+});
+</script>
         {% comment %} deleted this code becasue we do it with blocks instead
         <h1 class="product-title">{{ product.title }}</h1>
         <div class="product-price">{{ product.price | money }}</div> {% endcomment %}

@@ -71,6 +71,41 @@
   margin-bottom: 2rem;
 }
 
+.filter-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.filter-btn {
+  background: #fff;
+  border: 2px solid #ddd;
+  color: #666;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: #fff;
+}
+
+.product-card {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.product-card.hidden {
+  display: none;
+}
+
 
 @media (max-width: 768px) {
   .all-products-grid {
@@ -85,16 +120,21 @@
   <section class="all-products-section">
     <h1 class="all-products-heading">All Products</h1>
     
-    {% assign total_products = 0 %}
-    {% for collection in collections %}
-      {% assign total_products = total_products | plus: collection.products_count %}
-    {% endfor %}
+  
     
-    <p class="products-count">Showing all {{ collections.all.products.size }} products</p>
+    <!-- Filter Buttons -->
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-filter="all">All Products</button>
+      {% for collection in collections %}
+        {% unless collection.handle == 'frontpage' or collection.handle == 'all' %}
+          <button class="filter-btn" data-filter="{{ collection.handle }}">{{ collection.title }}</button>
+        {% endunless %}
+      {% endfor %}
+    </div>
     
     <ul class="all-products-grid">
       {% for product in collections.all.products %}
-        <li class="product-card">
+        <li class="product-card" data-collections="{% for collection in product.collections %}{{ collection.handle }}{% unless forloop.last %},{% endunless %}{% endfor %}">
           <a href="{{ product.url }}">
             {% if product.featured_image %}
               <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
@@ -117,6 +157,57 @@
     {% endif %}
   </section>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const productCards = document.querySelectorAll('.product-card');
+  const productsCount = document.querySelector('.products-count');
+
+  console.log('Filter system initialized');
+  console.log('Found buttons:', filterButtons.length);
+  console.log('Found products:', productCards.length);
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const filter = this.getAttribute('data-filter');
+      console.log('Filter clicked:', filter);
+      
+      // Update active button
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      
+      // Filter products
+      let visibleCount = 0;
+      productCards.forEach(card => {
+        const productCollections = card.getAttribute('data-collections');
+        console.log('Product collections:', productCollections);
+        
+        const collectionsArray = productCollections ? productCollections.split(',') : [];
+        
+        if (filter === 'all' || collectionsArray.includes(filter)) {
+          card.classList.remove('hidden');
+          card.style.display = 'block';
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+          card.style.display = 'none';
+        }
+      });
+      
+      console.log('Visible products:', visibleCount);
+      
+      // Update count
+      if (filter === 'all') {
+        productsCount.textContent = `Showing all ${productCards.length} products`;
+      } else {
+        const categoryName = this.textContent;
+        productsCount.textContent = `Showing ${visibleCount} products in ${categoryName}`;
+      }
+    });
+  });
+});
+</script>
 
 {% schema %}
 {
