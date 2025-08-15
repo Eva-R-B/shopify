@@ -6,7 +6,6 @@
     --color-accent: #B7A266;
 }
 .hero-section {
-
     background-color: #f8f8f8;
     background-size: cover;
     background-position: center;
@@ -77,10 +76,11 @@
 {% endstylesheet %}
 
 
-
+{% comment %} HERO SECTION of the page {% endcomment %}
 <section
   class="hero-section"
   style="
+  {% comment %} if we didn´t select anything yet, it will use a default image {% endcomment %}
     {% if section.settings.image != blank %}
   background-image: url('{{ section.settings.image | img_url: '1600x' }}');
 {% else %}
@@ -89,13 +89,16 @@
   "
 >
   <div class="hero-content">
+    {% comment %} uses the heading and subheading from the section settings. section settings in the schema at the end of the file {% endcomment %}
     <h1>{{ section.settings.heading }}</h1>
     <p>{{ section.settings.subheading }}</p>
     {% assign button_url = section.settings.button_url %}
+    {% comment %} if we didn´t select a link for the button, it will select the default:collections page {% endcomment %}
     {% if button_url == blank %}
       {% assign button_url = routes.collections_url %}
     {% endif %}
     {% if section.settings.button_text != blank %}
+        {% comment %} if we didn´t change the button text, the default will be shown. default defined in the schema at the end of the file {% endcomment %}
       <a href="{{ button_url }}" class="hero-btn">
         {{ section.settings.button_text }}
       </a>

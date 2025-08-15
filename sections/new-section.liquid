@@ -4,7 +4,6 @@
 display: flex;
 align-items: center;
 gap: 40px;
-padding: 40px ;
 min-height: 60vh;
 max-width: 1400px;
 margin: auto;
@@ -40,32 +39,53 @@ margin-bottom: 24px;
     width:400px;
     height: 400px;
 }
+.picture-text-section__button.btn {
+    display: inline-block;
+    padding: 10px 24px;
+    background: var(--accent-color);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 1rem;
+}
 </style>
 
 <div class="picture-text-section{% if section.settings.image_position == 'right' %} picture-text-section--reverse{% endif %}">
     <div class="picture-text-section__image">
-        {% if section.settings.image != blank %}
-        <img src="{{ section.settings.image | img_url: '900x' }}" alt="{{ section.settings.title | escape }}" class="imgclass">
+        {% if section.settings.asset_image != blank %}
+            {% comment %} Use asset image if specified {% endcomment %}
+            <img src="{{ section.settings.asset_image | asset_url }}" alt="{{ section.settings.title | escape }}" class="imgclass">
+        {% elsif section.settings.image != blank %}
+            {% comment %} Check if it's a simple filename (asset) or an image object {% endcomment %}
+            {% assign image_string = section.settings.image | string %}
+            {% if image_string contains '.jpg' or image_string contains '.jpeg' or image_string contains '.png' or image_string contains '.webp' %}
+                {% comment %} It's a filename, treat as asset {% endcomment %}
+                <img src="{{ section.settings.image | asset_url }}" alt="{{ section.settings.title | escape }}" class="imgclass">
+            {% else %}
+                {% comment %} It's an uploaded image object {% endcomment %}
+                <img src="{{ section.settings.image | img_url: '900x' }}" alt="{{ section.settings.title | escape }}" class="imgclass">
+            {% endif %}
         {% else %}
-    <img 
-        class="responsive-image-block placeholder"
-        src="{{ 'placeholder.png' | asset_url }}" 
-        alt="Placeholder image"
-        loading="lazy"
-    >
+            <img 
+                class="responsive-image-block placeholder"
+                src="{{ 'placeholder.png' | asset_url }}" 
+                alt="Placeholder image"
+                loading="lazy"
+            >
         {% endif %}
     </div>
     <div class="picture-text-section__content">
         <h2 class="picture-text-section__title">{{ section.settings.title }}</h2>
         <p class="picture-text-section__text">{{ section.settings.text }}</p>
         {% if section.settings.button_text != blank and section.settings.button_link != blank %}
-        <a href="{{ section.settings.button_link }}" class="btn" style="display: inline-block; padding: 10px 24px; background: #222; color: #fff; text-decoration: none; border-radius: 4px;">
-        {{ section.settings.button_text }}
-        </a>
+            <a href="{{ section.settings.button_link }}" class="picture-text-section__button btn">
+                {{ section.settings.button_text }}
+            </a>
         {% endif %}
     </div>
 </div>
 
+{% comment %} type text id asset-image : Creates a text input where you can type just the filename of an image from your assets folder. {% endcomment %}
 {% schema %}
 {
     "name": "Picture Text Section",
@@ -74,6 +94,13 @@ margin-bottom: 24px;
             "type": "image_picker",
             "id": "image",
             "label": "Image"
+        },
+        
+        {
+            "type": "text",
+            "id": "asset_image",
+            "label": "Asset Image Filename (optional)",
+            "info": "If specified, this will override the image picker above. Enter just the filename (e.g., forsidedefault.jpeg)"
         },
         {
             "type": "text",

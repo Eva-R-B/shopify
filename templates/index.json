@@ -1,5 +1,5 @@
-// HOMEPAGE
-
+// here we define     "new-section":{
+  
 {
   "sections": {
     "hero": {
@@ -15,9 +15,20 @@
         "title": "Featured Collection",
         "collection_handle": "frontpage"
       }
+    },
+    "new-section":{
+      "type": "new-section",
+      "settings": {
+        "asset_image": "forsidedefault.jpeg",
+        "title": "A universe of watches and accessories",
+        "text": "This content only appears by default on the homepage.<br><br> If you use this section elsewhere, it will show the default content from the section's schema. <br> <br> A watch is more than time. It’s a statement. At Time with style you’ll find classic men’s watches, elegant women’s watches, and accessories that complete your look. From minimalist dials to bold chronographs – our collection is curated to fit both everyday life and special occasions.",
+        "custom_setting": "Homepage specific value",
+        "button_text": "Se produkter",
+        "button_link": "/collections/all"
+      }
     }
   },
   "order": [
-    "hero", "featured-collection"
+    "hero", "featured-collection", "new-section"
   ]
 }
