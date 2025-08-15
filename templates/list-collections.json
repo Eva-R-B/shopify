@@ -4,12 +4,14 @@
     "sections": {
         "main":{
             "type": "list-collections",
-            "settings": {
-         
-            }
+            "settings": {}
+        },
+        "all-products": {
+            "type": "list-all-products",
+            "settings": {}
         }
     },
     "order": [
-        "main"
+        "main", "all-products"
     ],
 }

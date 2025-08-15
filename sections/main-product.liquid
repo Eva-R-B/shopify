@@ -145,6 +145,110 @@
                 }
         }
 }
+
+/* Related Products Section */
+.related-products-section {
+    max-width: 1200px;
+    margin: 60px auto 40px;
+    padding: 0 32px;
+}
+
+.related-products-container {
+    .related-products-title {
+        font-size: 2rem;
+        text-align: center;
+        color: var(--accent-color);
+        margin-bottom: 8px;
+        font-weight: 300;
+    }
+    
+    .related-products-subtitle {
+        text-align: center;
+        color: #666;
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .related-products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .related-product-card {
+        background: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        
+        &:hover {
+            transform: scale(1.02);
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .related-product-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #f7f7f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        .related-product-info {
+            padding: 16px;
+            
+            h3 {
+                font-size: 1.1rem;
+                margin: 0 0 8px 0;
+                color: #222;
+                font-weight: 500;
+            }
+            
+            .related-product-price {
+                margin: 0;
+                color: var(--accent-color);
+                font-size: 1rem;
+                font-weight: 500;
+            }
+        }
+    }
+    
+    .no-related-products {
+        text-align: center;
+        color: #666;
+        font-style: italic;
+        grid-column: 1 / -1;
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .related-products-section {
+        padding: 0 16px;
+        margin: 40px auto 20px;
+    }
+    
+    .related-products-container .related-products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+}
 {%endstylesheet %}
 
 <!-- Product Page Layout -->
@@ -185,6 +289,67 @@
                 {% endcase %}
                 {% endfor %}
 
+    </div>
+</div>
+
+<!-- Related Products Section -->
+<div class="related-products-section">
+    <div class="related-products-container">
+        
+        {% comment %} Get products from the same category as current product {% endcomment %}
+        {% assign related_products = blank %}
+        {% assign current_category = blank %}
+        
+        {% comment %} Look for category collections in order of priority {% endcomment %}
+        {% assign category_collections = 'maend-kategori,kvinde-kategori,under-1000-dkk,featured-products' | split: ',' %}
+        
+        {% for category_handle in category_collections %}
+            {% for collection in product.collections %}
+                {% if collection.handle == category_handle %}
+                    {% assign current_category = collection %}
+                    {% break %}
+                {% endif %}
+            {% endfor %}
+            {% if current_category != blank %}
+                {% break %}
+            {% endif %}
+        {% endfor %}
+        
+        {% if current_category != blank %}
+            <h2 class="related-products-title">Similar products from {{ current_category.title }} </h2>
+            
+            <div class="related-products-grid">
+                {% assign products_shown = 0 %}
+                {% for related_product in current_category.products limit: 8 %}
+                    {% unless related_product.id == product.id %}
+                        {% if products_shown < 4 %}
+                            <div class="related-product-card">
+                                <a href="{{ related_product.url }}">
+                                    {% if related_product.featured_image %}
+                                        <img src="{{ related_product.featured_image | img_url: 'medium' }}" alt="{{ related_product.title }}">
+                                    {% else %}
+                                        <div class="related-product-placeholder">
+                                            <span>No Image</span>
+                                        </div>
+                                    {% endif %}
+                                    <div class="related-product-info">
+                                        <h3>{{ related_product.title }}</h3>
+                                        <p class="related-product-price">{{ related_product.price | money }}</p>
+                                    </div>
+                                </a>
+                            </div>
+                            {% assign products_shown = products_shown | plus: 1 %}
+                        {% endif %}
+                    {% endunless %}
+                {% endfor %}
+                
+                {% if products_shown == 0 %}
+                    <p class="no-related-products">No other products found in this category.</p>
+                {% endif %}
+            </div>
+        {% else %}
+            <p class="no-related-products">No related products available.</p>
+        {% endif %}
     </div>
 </div>
 
