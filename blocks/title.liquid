@@ -8,6 +8,8 @@
 }
 </style>
 
+
+{% comment %} ESCAPE converts special characters into HTML entities, so they display safely {% endcomment %}
 {% assign tag = block.settings.element | default: 'h2' %}
 <{{ tag }} class="custom-title-block">
     {{ block.settings.text | strip_html | escape }}

@@ -1,3 +1,7 @@
+{% comment %} ESCAPE converts special characters into HTML entities, so they display safely {% endcomment %}
+ {% comment %} Example:
+"Me & You <3" → "Me &amp; You &lt;3" {% endcomment %}
+
 <p>{{ block.settings.text | strip_html | escape }}</p>
 
 {% schema %}
