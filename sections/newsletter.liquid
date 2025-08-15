@@ -8,12 +8,12 @@
         {% if section.settings.bg_type == 'image' and section.settings.bg_image != blank %}
             url({{ section.settings.bg_image | img_url: '1500x' }}) center/cover no-repeat
         {% else %}
-            {{ section.settings.bg_color | default: '#FFFAF6' }}
+     {{ section.settings.bg_color | default: '#FBFBFB' }}
+     
         {% endif %};
     padding: 82px 24px 88px 24px;
     border-radius: 12px;
-    border: 1px solid #eee;
-    box-shadow: 0 2px 8px rgba(175, 116, 13, 0.04);
+      {% comment %} box-shadow: 0 2px 8px rgba(175, 116, 13, 0.04); {% endcomment %}
     overflow: hidden;
     position: relative;
 }
