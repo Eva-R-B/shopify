@@ -2,15 +2,15 @@
 
 {
     "sections": {
-        "collections-list": {
-            "type": "list-collections"
-        },
+        // "collections-list": {
+        //     "type": "list-collections"
+        // },
         "main": {
             "type": "collections-subcollection"
         }
     },
     "order": [
-        "collections-list",
+        // "collections-list",
         "main"
     ]
 }

@@ -3,12 +3,20 @@ depending on where the featured collection is places, it is gonna show products 
 if you change the settings in one section, it will not affect the other sections. {% endcomment %}
 
 <style>
+    .collection-section {
+       margin: 0 auto;
+    }
     .cheading {
         color: var(--accent-color);
-        margin: 0rem 0 1.5rem;
         text-align: center;
-        font-size: 2rem;
+        font-size: 2.5rem;
         font-weight: 300;
+    }
+    .category-heading{
+        color: var(--accent-color);
+        text-align: center;
+        font-weight: 300;
+        font-size: 2.5rem;
     }
 </style>
 
@@ -42,7 +50,7 @@ if you change the settings in one section, it will not affect the other sections
 {% comment %} changed it to a default featured collection if it´s nothing selected    {% endcomment %}
       {% if section.settings.collection == blank %}
      <section class="collection-section">
-    <h2 class="category-heading" style="color: var(--accent-color);">Featured products</h2>
+    <h2 class="category-heading">Featured products</h2>
     <ul class="collection-products">
       {% for product in collections['featured-products'].products %}
         <li class="product-card">

@@ -8,7 +8,7 @@
  color: var(--accent-color);
   margin: 2rem 0 1.5rem;
   text-align: center;
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 300;
 }
 
@@ -159,11 +159,15 @@
 {% comment %} Javascript for filtering products {% endcomment %}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  const productCards = document.querySelectorAll('.product-card');
-  const productsCount = document.querySelector('.products-count');
+  // Scope the filter to only this section by finding the closest all-products-section
+  const allProductsSection = document.querySelector('.all-products-section');
+  if (!allProductsSection) return;
+  
+  const filterButtons = allProductsSection.querySelectorAll('.filter-btn');
+  const productCards = allProductsSection.querySelectorAll('.product-card');
+  const productsCount = allProductsSection.querySelector('.products-count');
 
-  console.log('Filter system initialized');
+  console.log('All Products Filter system initialized');
   console.log('Found buttons:', filterButtons.length);
   console.log('Found products:', productCards.length);
 
@@ -172,11 +176,11 @@ document.addEventListener('DOMContentLoaded', function() {
       const filter = this.getAttribute('data-filter');
       console.log('Filter clicked:', filter);
       
-      // Update active button
+      // Update active button (only within this section)
       filterButtons.forEach(btn => btn.classList.remove('active'));
       this.classList.add('active');
       
-      // Filter products
+      // Filter products (only within this section)
       let visibleCount = 0;
       productCards.forEach(card => {
         const productCollections = card.getAttribute('data-collections');
@@ -196,12 +200,14 @@ document.addEventListener('DOMContentLoaded', function() {
       
       console.log('Visible products:', visibleCount);
       
-      // Update count
-      if (filter === 'all') {
-        productsCount.textContent = `Showing all ${productCards.length} products`;
-      } else {
-        const categoryName = this.textContent;
-        productsCount.textContent = `Showing ${visibleCount} products in ${categoryName}`;
+      // Update count (if exists in this section)
+      if (productsCount) {
+        if (filter === 'all') {
+          productsCount.textContent = `Showing all ${productCards.length} products`;
+        } else {
+          const categoryName = this.textContent;
+          productsCount.textContent = `Showing ${visibleCount} products in ${categoryName}`;
+        }
       }
     });
   });
