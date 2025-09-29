@@ -15,7 +15,7 @@
     height: 400px;
 }
 </style>
-
+{% comment %} if an image is selected {% endcomment %}
 {% if block.settings.image != blank %}
     <img 
         class="responsive-image-block"
@@ -30,6 +30,7 @@
         loading="lazy"
     >
 {% else %}
+    {% comment %} if it´s nothing selected, it shows a placeholder {% endcomment %}
     <img 
         class="responsive-image-block placeholder"
         src="{{ 'placeholder.png' | asset_url }}" 
