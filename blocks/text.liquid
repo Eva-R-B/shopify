@@ -1,8 +1,23 @@
-{% comment %} ESCAPE converts special characters into HTML entities, so they display safely {% endcomment %}
- {% comment %} Example:
-"Me & You <3" → "Me &amp; You &lt;3" {% endcomment %}
 
-<p>{{ block.settings.text | strip_html | escape }}</p>
+{% comment %} ESCAPE converts special characters into HTML entities, so they display safely {% endcomment %}
+{% assign color = block.settings.color | default: '#222' %}
+{% assign width = block.settings.width | default: '100%' %}
+{% assign font = block.settings.font | default: 'inherit' %}
+{% assign align = block.settings.align | default: 'left' %}
+
+<div
+    style="
+        color: {{ color }};
+        width: {{ width }};
+        font-family: {{ font }};
+        text-align: {{ align }};
+        font-size: 1.1rem;
+        margin: 16px 0;
+        box-sizing: border-box;
+    "
+>
+    {{ block.settings.text }}
+</div>
 
 {% schema %}
 {
@@ -13,6 +28,43 @@
             "id": "text",
             "label": "Text Content",
             "default": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>"
+        },
+        {
+            "type": "color",
+            "id": "color",
+            "label": "Text Color",
+            "default": "#222"
+        },
+        {
+            "type": "text",
+            "id": "width",
+            "label": "Text Width (e.g. 100%, 600px)",
+            "default": "100%"
+        },
+        {
+            "type": "select",
+            "id": "font",
+            "label": "Font Family",
+            "options": [
+                { "value": "inherit", "label": "Theme Default" },
+                { "value": "Arial, sans-serif", "label": "Arial" },
+                { "value": "Georgia, serif", "label": "Georgia" },
+                { "value": "'Open Sans', Arial, sans-serif", "label": "Open Sans" },
+                { "value": "'Times New Roman', Times, serif", "label": "Times New Roman" },
+                { "value": "'Courier New', Courier, monospace", "label": "Courier New" }
+            ],
+            "default": "inherit"
+        },
+        {
+            "type": "select",
+            "id": "align",
+            "label": "Text Alignment",
+            "options": [
+                { "value": "left", "label": "Left" },
+                { "value": "center", "label": "Center" },
+                { "value": "right", "label": "Right" }
+            ],
+            "default": "left"
         }
     ],
     "presets": [

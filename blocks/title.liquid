@@ -1,20 +1,20 @@
-<style>
-.custom-title-block {
-    font-size: 1.5rem;
-    margin-top: 32px;
-    margin-bottom: 12px;
-    font-weight: 400;
-    color: var(--accent-color);
-}
-</style>
 
-
-{% comment %} ESCAPE converts special characters into HTML entities, so they display safely {% endcomment %}
+{% comment %} Title Block: customizable width, color, font, alignment, and text {% endcomment %}
 {% assign tag = block.settings.element | default: 'h2' %}
-<{{ tag }} class="custom-title-block">
-    {{ block.settings.text | strip_html | escape }}
+<{{ tag }}
+        style="
+                width: {{ block.settings.width | default: '100%' }};
+                color: {{ block.settings.color | default: '#B7A266' }};
+                font-family: {{ block.settings.font | default: 'inherit' }};
+                text-align: {{ block.settings.align | default: 'left' }};
+                font-size: 2rem;
+                font-weight: 400;
+                margin: 32px 0 12px 0;
+                box-sizing: border-box;
+        "
+>
+        {{ block.settings.text | strip_html | escape }}
 </{{ tag }}>
-
 
 {% schema %}
 {
@@ -39,11 +39,48 @@
                         "id": "text",
                         "label": "Title Text",
                         "default": "Your title here"
+                },
+                {
+                        "type": "color",
+                        "id": "color",
+                        "label": "Title Color",
+                        "default": "#B7A266"
+                },
+                {
+                        "type": "text",
+                        "id": "width",
+                        "label": "Title Width (e.g. 100%, 600px)",
+                        "default": "100%"
+                },
+                {
+                        "type": "select",
+                        "id": "font",
+                        "label": "Font Family",
+                        "options": [
+                                { "value": "inherit", "label": "Theme Default" },
+                                { "value": "Arial, sans-serif", "label": "Arial" },
+                                { "value": "Georgia, serif", "label": "Georgia" },
+                                { "value": "'Open Sans', Arial, sans-serif", "label": "Open Sans" },
+                                { "value": "'Times New Roman', Times, serif", "label": "Times New Roman" },
+                                { "value": "'Courier New', Courier, monospace", "label": "Courier New" }
+                        ],
+                        "default": "inherit"
+                },
+                {
+                        "type": "select",
+                        "id": "align",
+                        "label": "Text Alignment",
+                        "options": [
+                                { "value": "left", "label": "Left" },
+                                { "value": "center", "label": "Center" },
+                                { "value": "right", "label": "Right" }
+                        ],
+                        "default": "left"
                 }
         ],
         "presets": [
                 {
-                        "name": "Title ",
+                        "name": "Title",
                         "category": "Custom Sections"
                 }
         ]

@@ -1,57 +1,107 @@
-
-
 <style>
-.customizable-section {
-    max-width: 1400px; 
-    margin: 0 auto;     
+  .customizable-section {
+    max-width: 1400px;
+    margin: 0 auto;
     display: flex;
-    align-items: center;
-    gap: 40px;
+    align-items: flex-start;
+    gap: 20px;
     padding: 40px 24px;
-}
+    justify-content: flex-start;
+  }
+  .customizable-section--center {
+    justify-content: center;
+  }
+  .customizable-section--right {
+    justify-content: flex-end;
+  }
+  .customizable-section--vertical {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .customizable-section--vertical.customizable-section--center {
+    align-items: center;
+  }
+  .customizable-section--vertical.customizable-section--right {
+    align-items: flex-end;
+  }
+
 .customizable-section--reverse {
-    flex-direction: row-reverse;
+  flex-direction: row-reverse;
 }
-.customizable-section__image {
-flex: 1;
+
+/* 👇 Added for vertical stacking */
+.customizable-section--vertical {
+  flex-direction: column;
 }
+
 .customizable-section__content {
-    flex: 1;
+  flex: 1;
 }
+
 .customizable-section__title {
-font-size: 2rem;
-font-weight: 400;
-margin-bottom: 16px;
-color: var(--accent-color);
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 16px;
+  color: var(--accent-color);
 }
+
 .customizable-section__text {
-font-family: 'Open Sans', Arial, sans-serif;
-font-size: 1rem;
-margin-bottom: 24px;
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-size: 1rem;
+  margin-bottom: 24px;
 }
 </style>
 
-{% comment %} placeholder for blocks {% endcomment %}
-<div class="customizable-section{% if section.settings.image_position == 'right' %} customizable-section--reverse{% endif %}">
-   {% content_for 'blocks' %}
-   {% comment %} here blocks will be inserted {% endcomment %}
+{% comment %} Section wrapper with dynamic layout class {% endcomment %}
+<div class="customizable-section
+    {% if section.settings.layout == 'vertical' %} customizable-section--vertical{% endif %}
+    {% if section.settings.align == 'center' %} customizable-section--center{% elsif section.settings.align == 'right' %} customizable-section--right{% endif %}
+">
+  {% content_for 'blocks' %}
 </div>
 
 {% schema %}
 {
-    "name": "Picture Text Section",
-    "blocks": [
+  "name": "Picture Text Section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Elements direction",
+      "options": [
         {
-            "type": "@theme",
-        }
-    ],
-    "presets": [
+          "value": "horizontal",
+          "label": "Direction →"
+        },
         {
-            "name": "Custom Section",
-            "category": "Custom Sections"
+          "value": "vertical",
+          "label": "Direction ↓"
         }
-    ],
+      ],
+      "default": "horizontal"
+    },
+    {
+      "type": "select",
+      "id": "align",
+      "label": "Elements alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@theme"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Section (empty)",
+      "category": "Custom Sections"
+    }
+  ]
 }
 {% endschema %}
-
-

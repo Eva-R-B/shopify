@@ -1,0 +1,111 @@
+<style>
+	.text-slider-section {
+			position: relative;
+			overflow: hidden;
+			width: 100%;
+			margin: 0 auto;
+			padding: 5%;
+			border-radius: 12px;
+			box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+		}
+	.text-slider-track {
+		display: flex;
+		width: calc(400px * 8); /* 4 slides x 2 for seamless loop */
+		animation: slide-left 20s linear infinite;
+	}
+	.text-slider-section__title {
+		font-size: var(--h2-font-size);
+		font-weight: var(--h2-font-weight);
+		margin-bottom: 40px;
+		color: var(--accent-color);
+		text-align: center;
+		width: 100%;
+	}
+	.text-slider-slide {
+		min-width: 400px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: transparent;
+		position: relative;
+		font-size: 1.3rem;
+		font-family: 'Open Sans', Arial, sans-serif;
+		color: #222;
+		padding: 24px;
+		text-align: center;
+	}
+	@keyframes slide-left {
+		0% { transform: translateX(0); }
+		100% { transform: translateX(-1600px); }
+	}
+</style>
+
+<div class="text-slider-section" style="background: {{ section.settings.bg_color | default: '#FAFAFA' }};">
+		{% unless section.settings.hide_title %}
+			<h2 class="text-slider-section__title">{{ section.settings.slider_title }}</h2>
+		{% endunless %}
+	<div class="text-slider-track">
+			{% for block in section.blocks %}
+				<div class="text-slider-slide">
+					{{ block.settings.text | escape }}
+				</div>
+			{% endfor %}
+			{% for block in section.blocks %}
+				<div class="text-slider-slide">
+					{{ block.settings.text | escape }}
+				</div>
+			{% endfor %}
+	</div>
+</div>
+
+{% schema %}
+{
+	"name": "Text Slider Section",
+	"settings": [
+		{
+			"type": "checkbox",
+			"id": "hide_title",
+			"label": "Hide Title",
+			"default": false
+		},
+		{
+			"type": "color",
+			"id": "bg_color",
+			"label": "Background Color",
+			"default": "#FAFAFA"
+		},
+		{
+			"type": "text",
+			"id": "slider_title",
+			"label": "Slider Title",
+			"default": "Latest news about us"
+		}
+	],
+	"blocks": [
+		{
+			"type": "text_slide",
+			"name": "Text Slide",
+			"settings": [
+				{
+					"type": "text",
+					"id": "text",
+					"label": "Slide Text",
+					"default": "This is a slide text."
+				}
+			]
+		}
+	],
+	"presets": [
+			{
+				"name": "Slider with texts",
+				"category": "Custom Sections",
+				"blocks": [
+					{ "type": "text_slide", "settings": { "text": "This is the first news about us" } },
+					{ "type": "text_slide", "settings": { "text": "This can be testimonials as well" } },
+					{ "type": "text_slide", "settings": { "text": "Another message for the slider." } },
+					{ "type": "text_slide", "settings": { "text": "Final slide text example." } }
+				]
+			}
+	]
+}
+{% endschema %}

@@ -29,15 +29,21 @@
         "button_link": "/collections/all"
       }
     },
-    "slider-section": {
-      "type": "slider-section",
+    "slider-picture": {
+      "type": "slider-picture",
       "settings": {
-        "title": "Logo slider section",
-        "number_of_slides": 5
+        "title": "Picture slider section",
+        "number_of_slides": 4
+      }
+    },
+    "slider-text": {
+      "type": "slider-text",
+      "settings": {
+        "title": "Text slider section"
       }
     }
   },
   "order": [
-    "hero", "featured-collection", "new-section", "slider-section"
+    "hero", "featured-collection", "new-section", "slider-picture", "slider-text"
   ]
 }
