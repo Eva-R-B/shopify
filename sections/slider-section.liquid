@@ -1,0 +1,162 @@
+<style>
+	.slider-section {
+		position: relative;
+		overflow: hidden;
+		width: 100%;
+        height: 500px;
+		margin: 0 auto;
+        padding-top: 50px;
+		background: #f7f7f7;
+		border-radius: 12px;
+		box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+	}
+	.slider-track {
+		display: flex;
+		width: calc(400px * 10); /* 5 slides x 2 for seamless loop */
+		animation: slide-left 20s linear infinite;
+		height: 100%;
+	}
+	.slider-section__title {
+		font-size: 2rem;
+		font-weight: 400;
+		margin-bottom: 40px;
+		color: var(--accent-color);
+		text-align: center;
+		width: 100%;
+	}
+	.slider-slide {
+		min-width: 400px;
+		height: 350px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: transparent;
+		position: relative;
+	}
+	.slider-slide img {
+		width: 90%;
+		height: 250px;
+		object-fit: cover;
+		border-radius: 8px;
+		background: #fff;
+		box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+	}
+	@keyframes slide-left {
+		0% { transform: translateX(0); }
+		100% { transform: translateX(-1600px); }
+	}
+	.slider-section .placeholder {
+		opacity: 0.5;
+	}
+</style>
+
+<div class="slider-section">
+	<h2 class="slider-section__title">{{ section.settings.slider_title }}</h2>
+	<div class="slider-track">
+		{% for i in (1..5) %}
+			<div class="slider-slide">
+				{% capture img_key %}image_{{ i }}{% endcapture %}
+				{% capture asset_img_key %}asset_image_{{ i }}{% endcapture %}
+				{% assign img = section.settings[img_key] %}
+				{% assign asset_img = section.settings[asset_img_key] %}
+				{% if asset_img != blank %}
+					<img src="{{ asset_img | asset_url }}" alt="Slider Image {{ i }}">
+				{% elsif img != blank %}
+					<img src="{{ img | img_url: '900x' }}" alt="Slider Image {{ i }}">
+				{% else %}
+					<img src="{{ 'watch_logo.jpeg' | asset_url }}" alt="Placeholder Logo" class="placeholder">
+				{% endif %}
+			</div>
+		{% endfor %}
+		{% for i in (1..5) %}
+			<div class="slider-slide">
+				{% capture img_key %}image_{{ i }}{% endcapture %}
+				{% capture asset_img_key %}asset_image_{{ i }}{% endcapture %}
+				{% assign img = section.settings[img_key] %}
+				{% assign asset_img = section.settings[asset_img_key] %}
+				{% if asset_img != blank %}
+					<img src="{{ asset_img | asset_url }}" alt="Slider Image {{ i }}">
+				{% elsif img != blank %}
+					<img src="{{ img | img_url: '900x' }}" alt="Slider Image {{ i }}">
+				{% else %}
+					<img src="{{ 'watch_logo.jpeg' | asset_url }}" alt="Placeholder Logo" class="placeholder">
+				{% endif %}
+			</div>
+		{% endfor %}
+	</div>
+</div>
+
+{% schema %}
+{
+	"name": "Slider Section",
+	"settings": [
+		{
+			"type": "text",
+			"id": "slider_title",
+			"label": "Slider Title",
+			"default": "Brands we love"
+		},
+		{
+			"type": "image_picker",
+			"id": "image_1",
+			"label": "Slide 1 Image"
+		},
+		{
+			"type": "text",
+			"id": "asset_image_1",
+			"label": "Slide 1 Asset Filename (optional)",
+			"info": "Overrides image picker. Enter asset filename (e.g., logo.png)"
+		},
+		{
+			"type": "image_picker",
+			"id": "image_2",
+			"label": "Slide 2 Image"
+		},
+		{
+			"type": "text",
+			"id": "asset_image_2",
+			"label": "Slide 2 Asset Filename (optional)",
+			"info": "Overrides image picker. Enter asset filename (e.g., logo.png)"
+		},
+		{
+			"type": "image_picker",
+			"id": "image_3",
+			"label": "Slide 3 Image"
+		},
+		{
+			"type": "text",
+			"id": "asset_image_3",
+			"label": "Slide 3 Asset Filename (optional)",
+			"info": "Overrides image picker. Enter asset filename (e.g., logo.png)"
+		},
+		{
+			"type": "image_picker",
+			"id": "image_4",
+			"label": "Slide 4 Image"
+		},
+		{
+			"type": "text",
+			"id": "asset_image_4",
+			"label": "Slide 4 Asset Filename (optional)",
+			"info": "Overrides image picker. Enter asset filename (e.g., logo.png)"
+		},
+		{
+			"type": "image_picker",
+			"id": "image_5",
+			"label": "Slide 5 Image"
+		},
+		{
+			"type": "text",
+			"id": "asset_image_5",
+			"label": "Slide 5 Asset Filename (optional)",
+			"info": "Overrides image picker. Enter asset filename (e.g., logo.png)"
+		}
+	],
+	"presets": [
+		{
+			"name": "Slider Section",
+			"category": "Custom Sections"
+		}
+	]
+}
+{% endschema %}

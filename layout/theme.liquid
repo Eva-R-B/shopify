@@ -1,10 +1,11 @@
-{% comment %} the whole webshop structure. 
- includes the header newsletter and footer, that runs throughout the site.
-it is wrapping the main content {% endcomment %}
+{% comment %} 
+the whole webshop structure. 
+includes the header newsletter and footer, that runs throughout the site.
+it is wrapping the main content: content for layout is defined in templates. depending on which template we use.
+{% endcomment %}
 
 <html>
     <head>
-        {{ content_for_header }}
         {% style %}
           {{settings.font_main | font_face: font_display: 'swap'}}
           {{settings.font_menu | font_face: font_display: 'swap'}}
@@ -12,15 +13,17 @@ it is wrapping the main content {% endcomment %}
             :root {
                 --font-main--family: '{{ settings.font_main }}, {{ settings.font_main.fallback_family }}';
                 --font-menu--family: '{{ settings.font_menu }}, {{ settings.font_menu.fallback_family }}';
-                --color-main: #222;
-                --color-accent: #B7A266;
             }   
         {% endstyle %}
-        <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}">
+        {% comment %} loading the general styles, that needs to be used on the whole site {% endcomment %}
+          {{ 'theme.css' | asset_url | stylesheet_tag: preload: true }}
+
+         {{ content_for_header }}
     </head>
     <body>
         {% sections 'header-group' %} 
         
+        {% comment %} in templates/index.json we define the content that will be shown here {% endcomment %}
         {{ content_for_layout }}
 
         {% section 'newsletter' %}
