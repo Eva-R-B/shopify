@@ -4,6 +4,8 @@
     --color-main: #222;
     --color-accent: #B7A266;
     --title-style: great vibes, cursive, 'Brush Script MT', 'Comic Sans MS', sans-serif;
+    --h2-font-size: 2.5rem;
+    --h2-font-weight: 300;
 }
 body {
     font-family: var(--font-main--family, 'Montserrat', 'Helvetica Neue', sans-serif);

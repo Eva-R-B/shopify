@@ -28,9 +28,16 @@
         "button_text": "Se produkter",
         "button_link": "/collections/all"
       }
+    },
+    "slider-section": {
+      "type": "slider-section",
+      "settings": {
+        "title": "Logo slider section",
+        "number_of_slides": 5
+      }
     }
   },
   "order": [
-    "hero", "featured-collection", "new-section"
+    "hero", "featured-collection", "new-section", "slider-section"
   ]
 }

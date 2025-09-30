@@ -3,10 +3,9 @@
 		position: relative;
 		overflow: hidden;
 		width: 100%;
-        height: 500px;
 		margin: 0 auto;
-        padding-top: 50px;
-		background: #f7f7f7;
+        padding: 5%;
+		background: #FAFAFA;
 		border-radius: 12px;
 		box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 	}
@@ -14,11 +13,10 @@
 		display: flex;
 		width: calc(400px * 10); /* 5 slides x 2 for seamless loop */
 		animation: slide-left 20s linear infinite;
-		height: 100%;
 	}
 	.slider-section__title {
-		font-size: 2rem;
-		font-weight: 400;
+        font-size: var(--h2-font-size);
+        font-weight: var(--h2-font-weight);
 		margin-bottom: 40px;
 		color: var(--accent-color);
 		text-align: center;
@@ -26,7 +24,6 @@
 	}
 	.slider-slide {
 		min-width: 400px;
-		height: 350px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -35,10 +32,10 @@
 	}
 	.slider-slide img {
 		width: 90%;
-		height: 250px;
-		object-fit: cover;
+		height: 150px;
+		object-fit: contain;
 		border-radius: 8px;
-		background: #fff;
+		background-color: #fff;
 		box-shadow: 0 1px 4px rgba(0,0,0,0.03);
 	}
 	@keyframes slide-left {
@@ -53,7 +50,7 @@
 <div class="slider-section">
 	<h2 class="slider-section__title">{{ section.settings.slider_title }}</h2>
 	<div class="slider-track">
-		{% for i in (1..5) %}
+		{% for i in (1..4) %}
 			<div class="slider-slide">
 				{% capture img_key %}image_{{ i }}{% endcapture %}
 				{% capture asset_img_key %}asset_image_{{ i }}{% endcapture %}
@@ -68,7 +65,7 @@
 				{% endif %}
 			</div>
 		{% endfor %}
-		{% for i in (1..5) %}
+		{% for i in (1..4) %}
 			<div class="slider-slide">
 				{% capture img_key %}image_{{ i }}{% endcapture %}
 				{% capture asset_img_key %}asset_image_{{ i }}{% endcapture %}
