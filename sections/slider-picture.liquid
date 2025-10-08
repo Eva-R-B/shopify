@@ -10,8 +10,8 @@
 	}
 	.slider-track {
 		display: flex;
-		width: calc(400px * 10); /* 5 slides x 2 for seamless loop */
-		animation: slide-left 20s linear infinite;
+		width: calc(400px * 6); /* 3 visible slides, duplicated for seamless loop */
+		animation: slide-left 12s linear infinite;
 	}
 	.slider-section__title {
         font-size: var(--h2-font-size);
@@ -21,25 +21,28 @@
 		text-align: center;
 		width: 100%;
 	}
-	.slider-slide {
+	.slider-slide, .picture-slider-slide {
 		min-width: 400px;
+		max-width: 400px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		background: transparent;
 		position: relative;
 	}
-	.slider-slide img {
+	.slider-slide img, .picture-slider-slide img {
 		width: 90%;
-		height: 150px;
-		object-fit: contain;
+		height: 200px;
+		object-fit: cover;
 		border-radius: 8px;
 		background-color: #fff;
 		box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+		display: block;
+		margin: 0 auto;
 	}
 	@keyframes slide-left {
 		0% { transform: translateX(0); }
-		100% { transform: translateX(-1600px); }
+		100% { transform: translateX(-1200px); }
 	}
 	.slider-section .placeholder {
 		opacity: 0.5;
@@ -51,36 +54,45 @@
 	<h2 class="slider-section__title">{{ section.settings.slider_title }}</h2>
 	{% endunless %}
 	<div class="slider-track">
-		{% for i in (1..4) %}
-			<div class="slider-slide">
-				{% capture img_key %}image_{{ i }}{% endcapture %}
-				{% capture asset_img_key %}asset_image_{{ i }}{% endcapture %}
-				{% assign img = section.settings[img_key] %}
-				{% assign asset_img = section.settings[asset_img_key] %}
-				{% if asset_img != blank %}
-					<img src="{{ asset_img | asset_url }}" alt="Slider Image {{ i }}">
-				{% elsif img != blank %}
-					<img src="{{ img | img_url: '900x' }}" alt="Slider Image {{ i }}">
-				{% else %}
-					<img src="{{ 'watch_logo.jpeg' | asset_url }}" alt="Placeholder Logo" class="placeholder">
-				{% endif %}
-			</div>
-		{% endfor %}
-		{% for i in (1..4) %}
-			<div class="slider-slide">
-				{% capture img_key %}image_{{ i }}{% endcapture %}
-				{% capture asset_img_key %}asset_image_{{ i }}{% endcapture %}
-				{% assign img = section.settings[img_key] %}
-				{% assign asset_img = section.settings[asset_img_key] %}
-				{% if asset_img != blank %}
-					<img src="{{ asset_img | asset_url }}" alt="Slider Image {{ i }}">
-				{% elsif img != blank %}
-					<img src="{{ img | img_url: '900x' }}" alt="Slider Image {{ i }}">
-				{% else %}
-					<img src="{{ 'watch_logo.jpeg' | asset_url }}" alt="Placeholder Logo" class="placeholder">
-				{% endif %}
-			</div>
-		{% endfor %}
+		{% assign block_count = section.blocks.size %}
+		{% if block_count == 1 %}
+			{% for i in (1..6) %}
+				{% assign block = section.blocks[0] %}
+				<div class="picture-slider-slide">
+					{% if block.settings.image != blank %}
+						<img src="{{ block.settings.image | img_url: '400x150', crop: 'center' }}" alt="Slide Image {{ i }}">
+					{% elsif block.settings.asset_image != blank %}
+						<img src="{{ block.settings.asset_image | asset_url }}" alt="Slide Image {{ i }}">
+					{% else %}
+						<img src="{{ 'watch_logo.jpeg' | asset_url }}" alt="Placeholder Logo" class="placeholder">
+					{% endif %}
+				</div>
+			{% endfor %}
+		{% else %}
+			{% for block in section.blocks %}
+				<div class="picture-slider-slide">
+					{% if block.settings.image != blank %}
+						<img src="{{ block.settings.image | img_url: '400x150', crop: 'center' }}" alt="Slide Image {{ forloop.index }}">
+					{% elsif block.settings.asset_image != blank %}
+						<img src="{{ block.settings.asset_image | asset_url }}" alt="Slide Image {{ forloop.index }}">
+					{% else %}
+						<img src="{{ 'watch_logo.jpeg' | asset_url }}" alt="Placeholder Logo" class="placeholder">
+					{% endif %}
+				</div>
+			{% endfor %}
+			{% comment %} Duplicate slides for seamless animation {% endcomment %}
+			{% for block in section.blocks %}
+				<div class="picture-slider-slide">
+					{% if block.settings.image != blank %}
+						<img src="{{ block.settings.image | img_url: '400x150', crop: 'center' }}" alt="Slide Image {{ forloop.index }}">
+					{% elsif block.settings.asset_image != blank %}
+						<img src="{{ block.settings.asset_image | asset_url }}" alt="Slide Image {{ forloop.index }}">
+					{% else %}
+						<img src="{{ 'watch_logo.jpeg' | asset_url }}" alt="Placeholder Logo" class="placeholder">
+					{% endif %}
+				</div>
+			{% endfor %}
+		{% endif %}
 	</div>
 </div>
 
@@ -105,67 +117,37 @@
 			"id": "slider_title",
 			"label": "Slider Title",
 			"default": "Brands we love"
-		},
+		}
+	],
+	"blocks": [
 		{
-			"type": "image_picker",
-			"id": "image_1",
-			"label": "Slide 1 Image"
-		},
-		{
-			"type": "text",
-			"id": "asset_image_1",
-			"label": "Slide 1 Asset Filename (optional)",
-			"info": "Overrides image picker. Enter asset filename (e.g., logo.png)"
-		},
-		{
-			"type": "image_picker",
-			"id": "image_2",
-			"label": "Slide 2 Image"
-		},
-		{
-			"type": "text",
-			"id": "asset_image_2",
-			"label": "Slide 2 Asset Filename (optional)",
-			"info": "Overrides image picker. Enter asset filename (e.g., logo.png)"
-		},
-		{
-			"type": "image_picker",
-			"id": "image_3",
-			"label": "Slide 3 Image"
-		},
-		{
-			"type": "text",
-			"id": "asset_image_3",
-			"label": "Slide 3 Asset Filename (optional)",
-			"info": "Overrides image picker. Enter asset filename (e.g., logo.png)"
-		},
-		{
-			"type": "image_picker",
-			"id": "image_4",
-			"label": "Slide 4 Image"
-		},
-		{
-			"type": "text",
-			"id": "asset_image_4",
-			"label": "Slide 4 Asset Filename (optional)",
-			"info": "Overrides image picker. Enter asset filename (e.g., logo.png)"
-		},
-		{
-			"type": "image_picker",
-			"id": "image_5",
-			"label": "Slide 5 Image"
-		},
-		{
-			"type": "text",
-			"id": "asset_image_5",
-			"label": "Slide 5 Asset Filename (optional)",
-			"info": "Overrides image picker. Enter asset filename (e.g., logo.png)"
+			"type": "picture_slide",
+			"name": "Picture Slide",
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "image",
+					"label": "Slide Image"
+				},
+				{
+					"type": "text",
+					"id": "asset_image",
+					"label": "Asset Image Filename (optional)",
+					"info": "Overrides image picker. Enter asset filename (e.g., logo.png)"
+				}
+			]
 		}
 	],
 	"presets": [
 		{
-			"name": " Slider with pictures",
-			"category": "Custom Sections"
+			"name": "Slider with pictures",
+			"category": "Custom Sections",
+			"blocks": [
+				{ "type": "picture_slide", "settings": { "image": "", "asset_image": "watch_logo.jpeg" } },
+				{ "type": "picture_slide", "settings": { "image": "", "asset_image": "watch_logo.jpeg" } },
+				{ "type": "picture_slide", "settings": { "image": "", "asset_image": "watch_logo.jpeg" } },
+				{ "type": "picture_slide", "settings": { "image": "", "asset_image": "watch_logo.jpeg" } }
+			]
 		}
 	]
 }

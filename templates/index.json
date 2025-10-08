@@ -33,7 +33,6 @@
       "type": "slider-picture",
       "settings": {
         "title": "Picture slider section",
-        "number_of_slides": 4
       }
     },
     "slider-text": {
